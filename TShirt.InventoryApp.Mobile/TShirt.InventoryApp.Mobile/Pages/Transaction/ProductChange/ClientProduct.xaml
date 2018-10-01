@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Transaction.ProductChange.ClientProduct"
+             xmlns:b="clr-namespace:Xamarin.Behaviors;assembly=Xamarin.Behaviors" 
+             BackgroundColor="{StaticResource BackgroundPhone}" x:Name="Page">
+
+    <StackLayout>
+            <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="65" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                    <!--<RowDefinition Height="45"/>-->
+                </Grid.RowDefinitions>
+
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/CambioItem.png" Margin="5"></Image>
+                <Label x:Name="EntProveedor" Text="Cambio de Producto" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/Menu.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0.167" BackgroundColor="{StaticResource BackgroundPhone}"  VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="255" />
+                        <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Grid.Column="1" Text="Nro. Pedido" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontSize="14" />
+                <Entry x:Name="EntPedido" Grid.Row="1" Grid.Column="2" Placeholder="Pedido" HorizontalOptions="StartAndExpand" VerticalOptions="Center" WidthRequest="250"  FontSize="14" Text="{Binding NroPedido}">
+                    <b:Interaction.Behaviors>
+                        <b:BehaviorCollection>
+                            <b:EventToCommand  EventName="Completed"  Command="{Binding SearchEnter}"/>
+                        </b:BehaviorCollection>
+                    </b:Interaction.Behaviors>
+                </Entry>
+                <Image WidthRequest="25" Grid.Row="1" Grid.Column="3"  HeightRequest="25" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/search.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer  
+                            Command="{Binding Path=BindingContext.SearchClicImage, Source={x:Reference Page}}"
+                            CommandParameter="{Binding .}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Label Grid.Row="2" Grid.Column="1" Text="Cliente" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontSize="14" />
+                <Entry x:Name="EntCliente" Grid.Row="2" Grid.Column="2"  HorizontalOptions="StartAndExpand" VerticalOptions="Center" WidthRequest="250" FontSize="14" IsEnabled="False" Text="{Binding ClientName}"></Entry>
+
+
+                <Button Text="Siguiente >" Grid.Row="2" Grid.Column="3"   VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="150" Style="{StaticResource ButtonTShirt}" Command="{Binding Next}" IsVisible="{Binding Visible}"></Button>
+                </Grid>
+
+            </Grid>
+        </StackLayout>
+  
+</ContentPage>

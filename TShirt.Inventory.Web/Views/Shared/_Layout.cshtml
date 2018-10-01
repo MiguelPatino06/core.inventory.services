@@ -1,0 +1,266 @@
+﻿@using TShirt.Inventory.App.Utils
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <title>TSHIRT | @ViewBag.Title</title>
+
+  <!-- REQUIRED CSS -->
+  @*@Styles.Render("~/Content/css")*@
+  <!-- Font Awesome Icons -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <!-- Ionicons -->
+  <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  @Styles.Render("~/Content/skin")
+  <!-- END REQUIRED CSS -->
+  @Styles.Render("~/Content/css")
+
+
+
+  @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/bootstrap")
+
+  @*<script src="@Url.Content("~/Scripts/kendo/2015.1.429/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2015.1.429/kendo.web.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2015.1.429/kendo.aspnetmvc.min.js")"></script>*@
+</head>
+
+<body class="skin-red sidebar-mini">
+  <div class="wrapper">
+    <!-- Main Header -->
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img src="@Url.Content("~/Content/Images/favicon.svg")" /></span>
+        <!-- logo for regular state and mobile devices -->
+        @*<span class="logo-lg"><img src="@Url.Content("~/Content/Images/LogoTheFitnessAppsGris.svg")"></span>*@
+      </a>
+      <!-- Header Navbar -->
+      <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+          Powered Green Retail
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <img src="@Url.Content("~/Content/Images/userIcon.png")" class="img-circle" alt="User Image" />
+            @*<img src="~/Content/Images/user2-160x160.jpg" class="img-circle" alt="User Image" />*@
+          </div>
+          <div class="pull-left info">
+            <p> Miguel Patiño</p>
+            <!-- Status -->
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        @Html.Partial("Menu")
+        <!-- /.sidebar-menu -->
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        @*<h1>
+              Page Header
+              <small>Optional description</small>
+          </h1>*@
+        @*<ol class="breadcrumb">
+              <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+              <li class="active">Here</li>
+          </ol>*@
+      </section>
+      <!-- Main content -->
+      <section class="content">
+
+        @RenderBody()
+
+      </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <!-- To the right -->
+      <div class="pull-right hidden-xs">
+        @*Anything you want*@
+      </div>
+      <!-- Default to the left -->
+      Copyright &copy; 2017 <a href="http://green-retail.com/" target="_blank"><b>APPLEGRENT</b> Technology</a>. All rights reserved.
+    </footer>
+
+
+    <!-- Add the sidebar's background. This div must be placed
+        immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+  </div><!-- ./wrapper -->
+  <!--Modal Dialogs-->
+  <div id="hider"></div>
+  <div class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="modalBtn" class="btn btn-outline">Si</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <div class="alert alert-dismissable" style="position:fixed">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true" onclick="hideNotification();">×</button>
+    <h4><i id="AlertIcon" class="icon fa"></i> Notificaci&oacute;n!</h4>
+    <p id="AlertMessage"></p>
+  </div>
+
+  <!-- REQUIRED JS SCRIPTS -->
+  @Scripts.Render("~/bundles/jqueryval")
+  @*@Scripts.Render("~/Scripts/jquery.validate.js")*@
+  @*@Scripts.Render("~/Scripts/knockout-3.3.0.js")*@
+  @RenderSection("scripts", required: false)
+  @Scripts.Render("~/bundles/app")
+
+
+  <!-- App Insights-->
+  <script type="text/javascript">
+    var appInsights = window.appInsights || function (config) {
+      function s(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u; for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;) s("track" + i.pop()); return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) { var s = u && u(config, r, f, e, o); return s !== !0 && t["_" + i](config, r, f, e, o), s }), t
+    }({
+      instrumentationKey: "64892d68-ca21-41b1-a3cb-19779c9d13c5"
+    });
+
+    window.appInsights = appInsights;
+    appInsights.trackPageView();
+  </script>
+  <!--END REQUIRED JS SCRIPTS -->
+  <script type="text/javascript">
+    $(function () {
+
+
+    });
+
+    $("#closeModal").click(function () {
+      CloseModal();
+    });
+
+
+    function CloseModal() {
+      $("#hider").hide();
+      $(".modal").hide();
+      $(".modal").removeClass("modal-warning");
+      $(".modal").removeClass("modal-danger");
+      $(".modal").removeClass("modal-success");
+      $(".modal").removeClass("modal-info");
+      $(".modal-title").empty();
+      $(".modal-body").empty();
+      reloadScrollBars();
+      $("#modalBtn").click(null);
+    }
+
+    function showModal(type, title, content, confirmCallback) {
+      switch (type) {
+        case "warning":
+          $(".modal").addClass("modal-warning");
+          break;
+        case "error":
+          $(".modal").addClass("modal-danger");
+          break;
+        case "success":
+          $(".modal").addClass("modal-success");
+          break;
+        case "info":
+          $(".modal").addClass("modal-info");
+          break;
+
+        default:
+          break;
+      }
+
+      $(".modal-title").append(title);
+      $(".modal-body").append("<p>" + content + "</p>");
+      $("#hider").fadeIn("slow");
+      $('.modal').fadeIn("slow");
+      unloadScrollBars();
+
+      $("#modalBtn").click(confirmCallback);
+    };
+
+
+    function reloadScrollBars() {
+      document.documentElement.style.overflow = 'auto'; // firefox, chrome
+      document.body.scroll = "yes"; // ie only
+    }
+
+    function unloadScrollBars() {
+      document.documentElement.style.overflow = 'hidden'; // firefox, chrome
+      document.body.scroll = "no"; // ie only
+    }
+
+    var NotificationHidTimeout;
+    function showNotification(aMessage, aType, aIsAutoClose) {
+      switch (aType) {
+        case "warning":
+          $(".alert").addClass("alert-warning");
+          $("#AlertIcon").addClass("fa-warning");
+          break;
+        case "error":
+          $(".alert").addClass("alert-danger");
+          $("#AlertIcon").addClass("fa-ban");
+          break;
+        case "success":
+          $(".alert").addClass("alert-success");
+          $("#AlertIcon").addClass("fa-check");
+          break;
+        case "info":
+          $(".alert").addClass("alert-info");
+          $("#AlertIcon").addClass("fa-info");
+          break;
+
+        default:
+          break;
+      }
+      $("#AlertMessage").append(aMessage);
+      $(".alert").fadeIn("slow");
+      if (aIsAutoClose) {
+        NotificationHidTimeout = setTimeout(function () { hideNotification(); }, 5000);
+      }
+    }
+
+    function hideNotification() {
+      $(".alert").fadeOut();
+      $("#AlertMessage").empty();
+      $(".alert").removeClass("alert-warning");
+      $(".alert").removeClass("alert-danger");
+      $(".alert").removeClass("alert-success");
+      $(".alert").removeClass("alert-info");
+
+      $("#AlertIcon").removeClass("fa-info");
+      $("#AlertIcon").removeClass("fa-check");
+      $("#AlertIcon").removeClass("fa-ban");
+      $("#AlertIcon").removeClass("fa-warning");
+      clearTimeout(NotificationHidTimeout);
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Count.CountResume"
+             BackgroundColor="{StaticResource BackgroundPhone}">
+  <ScrollView>
+        <StackLayout>
+            <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="65" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                    <!--<RowDefinition Height="45"/>-->
+                </Grid.RowDefinitions>
+
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/CountItem.png" Margin="5"></Image>
+                <Label x:Name="EntProveedor" Text="{Binding PlanName}" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/Menu.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0.167" BackgroundColor="{StaticResource BackgroundPhone}" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+
+                    </Grid.RowDefinitions>
+
+
+
+                    <Image Grid.Row="0" Grid.Column="0" Margin="0,20,0,0" 
+                        WidthRequest="80" HeightRequest="80" 
+                        VerticalOptions="Center" HorizontalOptions="Center" 
+                        Source="{Binding ImageStatusPlan}" ></Image>
+                    
+                    <ListView 
+                         x:Name="OrderListView"
+                        Margin="0,20,0,0"  Grid.Row="1" Grid.Column="0" BackgroundColor="{StaticResource BackgroundPhone}"
+                    ItemsSource="{Binding Details}"
+                    HasUnevenRows="True"  
+                      HorizontalOptions="Fill" VerticalOptions="Center" HeightRequest="{Binding HeightList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                                        <!--<ViewCell.View>-->
+                                        <Grid Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource BackgroundPhone}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label
+                                            Grid.Row="0" Grid.Column="0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="End"
+                                            Text="{Binding ProductCode}"
+                                            FontSize="14"
+                                            FontAttributes="Bold"
+                                            TextColor="Black" />
+
+                                            <Label Grid.Row="0" Grid.Column="1" 
+                                            Text="{Binding ProductDescription}" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Center" 
+                                            FontSize="14"
+                                            FontAttributes="Bold" TextColor="Black" />
+                                            
+                                            <Label Grid.Row="0" Grid.Column="2" Margin="15,0,0,0"                                          
+                                            Text="{Binding TotalProduct}" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Start"  
+                                            FontSize="14"
+                                            TextColor="{Binding RColor}" 
+                                            FontAttributes="Bold" />
+                                        </Grid>
+                                        <!--</ViewCell.View>-->
+                                    </StackLayout>
+
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    
+                    <Button Text="Guardar" Grid.Row="2" Grid.Column="0" Margin="0,20,0,0" VerticalOptions="Center" WidthRequest="250" Style="{StaticResource ButtonTShirt}" Command="{Binding SavePlan}"></Button>
+                </Grid>
+
+            </Grid>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

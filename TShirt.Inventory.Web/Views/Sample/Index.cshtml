@@ -1,0 +1,482 @@
+﻿@model TShirt.InventoryApp.Services.Models.Sample
+@{
+    ViewBag.Title = "Crear Muestra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => a.Id)
+    @Html.HiddenFor(a=> a.Client)
+    <input id="idProduct" type="hidden"/>
+    <input id="CountRows" type="hidden" value="0"/>
+    
+
+    <div class="row">
+        <div class="col-md-5 col-lg-offset-1">
+            <div class="row form-group">
+                <div class="row form-inline voffset">
+                    <div class="col-xs-3">
+                        <label>Nombre Cliente</label>
+                    </div>
+                    <div class="col-sm-9">
+                        @if (Model.Id > 0)
+                        {
+                            @Html.TextBoxFor(a => a.Client, new {@placeholder = "Cliente", @class = "form-control", @readonly = "readonly"})
+                        }
+                        else
+                        {
+                            <div class="input-group">
+                                @Html.TextBox("aStringSearchCliente", (string)ViewBag._StringSearchCliente, new { @placeholder = "Busqueda Cliente", @name = "table_search", @class = "form-control" })
+                                <div class="input-group-btn">
+                                    <a class='btn btn-success' id='SearchButtonClient' role='button' href=javascript:void(0)>
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                        @*@Html.ValidationMessageFor(a => a.Client, "", new {@class = "text-danger"})*@
+                    </div>
+                </div>
+
+                <div class="row form-inline voffset">
+                    <div class="col-lg-offset-3 col-xs-9">
+                       
+                        @Html.DropDownList("SearchClient", ViewData["searchClient"] as List<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="row form-inline voffset">
+                    <div class="col-sm-3">
+                        <label>Producto</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            @Html.TextBox("aStringSearch", (string) ViewBag._StringSearch, new {@placeholder = "Busqueda", @name = "table_search", @class = "form-control"})
+                            <div class="input-group-btn">
+                                <a class='btn btn-success' id='SearchButton' role='button' href=javascript:void(0)>
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <span id="MessageProduct" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div id="DivClientAdd">
+                    <div class="row form-inline voffset">
+                        <div class="col-lg-offset-3 col-xs-9">
+                            <input type="text" id="NombreProducto" name="NombreProducto" class="form-control" readonly="readonly"/>
+                            @Html.DropDownList("SearchProd", ViewData["searchProd"] as List<SelectListItem>, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="row form-inline voffset">
+                        <div class="col-sm-3">
+                            <label>Cantidad</label>
+                        </div>
+                        <div class="col-xs-9">
+                            <div class="input-group">
+                                <input type="number" id="ProductQty" name="ProductQty" class="form-control"/>
+                                <div class="input-group-btn">
+                                    <a class='btn btn-success' id='AddButton' role='button' href=javascript:void(0)>
+                                        Agregar >
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="DivProducts">
+
+        <!--Table-->
+        <div class="col-md-offset-2 col-md-8">
+            <div id="tableHolder" class="box">
+                <div class="box-body table-responsive no-padding">
+
+                    <table id="containerProducts" class="table table-hover table-bordered custom-table">
+                        <thead>
+                        <tr>
+                            <th>Código Producto</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        @if (Model.Id > 0)
+                        {
+                            if (Model.Details != null)
+                            {
+                                foreach (var item in Model.Details)
+                                {
+                                    <tr id="@item.Id">
+                                        <td>
+                                            @item.ProductCode
+                                        </td>
+                                        <td>
+                                            @item.ProductName
+                                        </td>
+                                        <td>
+                                            @item.Quantity
+                                        </td>
+                                        <td>
+
+                                            @*<a class="btn btn-success" role="button" href="@Url.Action("Add", "ProductChange", new {Code = item.Id})">Ver ></a>*@
+
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Observacion-->
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="form-group">
+                    <label for="Observation">Obervación</label>
+                    @Html.EditorFor(a => a.Observation, new {htmlAttributes = new {@class = "form-control", @placeholder = "Observacion", @rows = "3"}})
+                </div>
+            </div>
+        </div>
+
+        <!--Buttons-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-offset-4 btn-group">
+
+                    @if (Model.Id > 0)
+                    {
+                        @Html.ActionLink("Volver a Lista de Muestras", "List", "Sample")
+                    }
+                    else
+                    {
+                        <button type="submit" id="saveButton" name="submitButton" class="btn btn-success" style="width: 150px" value="_SAVE">Guardar</button>
+                        <button type="button" id="cancelButton" name="cancelButton" class="btn btn-success" style="width: 150px" value="_CANCEL">Cancelar</button>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+        <!-- Modal Start here-->
+    <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1"
+         role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-time">
+                        </span>Please Wait
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal ends Here -->
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+
+                
+                function cleanSearch() {
+                    $("#aStringSearch, #ProductQty, #NombreProducto").val("");
+                    $("#DivClientAdd").hide();
+                }
+
+
+                function recalcId() {
+                    $('#containerProducts > tbody > tr').attr('id', function(i, o) {
+                        return i++;
+                    });
+                }
+
+                $('#containerProducts').on('click', '#btnC', function() {
+                    $(this).closest('tr').remove();
+
+                    var itemIndex = $("#containerProducts > tbody > tr").length;
+
+                    if (itemIndex > 0) {
+                        resetIndex();
+                    }
+                    else {
+                        $("#containerProducts, #DivProducts").hide();
+                    }
+
+                    return false;
+                });
+
+                $("#PedidoId").focus();
+
+                var _id = $('#Id').val();
+                if (_id === "0") {
+                    $("#DivProducts").hide();
+                    $("#saveButton").attr("disabled", "disabled");
+                } else {
+                    console.log("entro g");
+                    $("#saveButton").attr("disabled", "disabled");
+                    $("#cancelButton").attr("disabled", "disabled");
+                    $("#SearchButton").attr("disabled", "disabled");
+                }
+                $("#DivClientAdd").hide();
+                $("#SearchClient").hide();
+                //function ButtonCancel() {
+                //    alert("Hello");
+                //}
+
+                $('#cancelButton')
+                    .on('click', function() {
+                        $('#Observation').val('');
+                        $('#Client').val('');
+                        cleanSearch();
+                        $("#containerProducts > tbody").empty();
+                        $('#DivProducts').hide();
+                        $("#SearchClient").empty();
+                        $("#SearchClient").hide();
+                        $("#aStringSearchCliente").val('');
+                        $('#Client').val('');
+                });
+
+
+                /*Buscar Producto*/
+                $('#SearchButton')
+                    .on('click',
+                        function() {
+
+                            var _id = $('#Id').val();
+                            if (_id === "0") {
+                                $('#NombreProducto').text("");
+                                $('#NombreProducto').hide();
+                                $('#idProduct').val('');
+                                $('#MessageProduct').text('');
+                                $('#myPleaseWait').modal('show'); //show progress bar
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '@Url.Action("GetProduct")',
+                                    dataType: 'json',
+                                    data: { search: $("#aStringSearch").val() },
+                                    success: function (data) {
+                                        $("#DivClientAdd").show();
+                                        $("#SearchProd").empty();
+                                        $("#SearchProd").hide();
+                                        if (data.CountProduct > 1) {
+                                            $("#SearchProd").show();
+                                            $.each(data.Result, function (i, produc) {
+                                                $("#SearchProd")
+                                                    .append('<option value="' + produc.Code + '">' +  produc.Description + '</option>');
+                                            });
+                                            var selectProductValue = $("#SearchProd").val();
+                                            var selectProdcutText = $("#SearchProd option:selected").text();
+                                            $('#idProduct').val(selectProductValue);
+                                            $('#NombreProducto').val(selectProdcutText);
+                                            $('#myPleaseWait').modal('hide'); //hide progress bar
+                                        } else if (data.CountProduct === 1) {
+                                            $('#NombreProducto').show();
+                                            $.each(data.Result, function(i, produc) {
+                                                $('#NombreProducto').val(produc.Description);
+                                                $('#idProduct').val(produc.Code);
+                                            });
+                                            $('#myPleaseWait').modal('hide'); //hide progress bar
+                                        } else {
+                                            $('#MessageProduct').text("Producto NO registrado");
+                                            $("#DivClientAdd").hide();
+                                            $('#NombreProducto').val('');
+                                            $('#idProduct').val('');
+                                            $('#myPleaseWait').modal('hide'); //hide progress bar
+                                        }
+                                    },
+                                    error: function (ex) {
+                                        $('#MessageProduct').text("Producto NO registrado");
+                                        $("#DivClientAdd").hide();
+                                        $('#NombreProducto').val('');
+                                        $('#idProduct').val('');
+                                        $('#myPleaseWait').modal('hide'); //hide progress bar
+                                    }
+                    });
+                }
+            });
+           
+            /* Buscar Cliente*/
+            $('#SearchButtonClient')
+            .on('click',
+                function () {
+
+                    var _id = $('#Id').val();
+                    if (_id === "0") {
+                        $('#Client').val("");
+                        $('#MessageProduct').text('');
+                        $('#myPleaseWait').modal('show'); //show progress bar
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("GetClient")',
+                            dataType: 'json',
+                            data: { search: $("#aStringSearchCliente").val() },
+                            success: function (data) {
+                                $("#SearchClient").empty();
+                                $("#SearchClient").hide();
+                                $("#saveButton").prop("disabled", false);
+                                if (data.countResult > 1) {
+                                    $("#SearchClient").show();
+                                    $.each(data.Result, function (i, client) {
+                                        $("#SearchClient")
+                                            .append('<option value="' + client.Code + '">' + client.Name + '</option>');
+                                    });
+                                    var selectProdcutText = $("#SearchClient option:selected").text();
+                                    $('#Client').val(selectProdcutText);
+                                    $('#myPleaseWait').modal('hide'); //hide progress bar
+                                } else if (data.countResult === 1) {
+
+                                    $("#SearchClient").show();
+                                    $.each(data.Result, function(i, client) {
+                                        $("#SearchClient")
+                                           .append('<option value="' + client.Code + '">' + client.Name + '</option>');
+                                    });
+
+                                    
+                                    var selectProdcutText2 = $("#SearchClient option:selected").text();
+                                    $('#Client').val(selectProdcutText2);
+                                    $('#myPleaseWait').modal('hide'); //hide progress bar
+                                } else {
+                                    $("#saveButton").attr("disabled", "disabled");
+                                    $('#MessageProduct').text("Cliente NO registrado");
+                                    $('#myPleaseWait').modal('hide'); //hide progress bar
+                                }
+                            },
+                            error: function (ex) {
+                                $('#MessageProduct').text("Cliente NO registrado");
+                                alert("hello2");
+                                $('#Client').val('');
+                                $("#saveButton").attr("disabled", "disabled");
+                                $('#myPleaseWait').modal('hide'); //hide progress bar
+                            }
+                        });
+                    }
+                });
+
+
+
+            $("#SearchProd")
+               .change(function () {
+                   var selectProductValue = $("#SearchProd").val();
+                   var selectProductText = $("#SearchProd option:selected").text();
+                   $('#idProduct').val(selectProductValue);
+                   $('#NombreProducto').val(selectProductText);
+            });
+
+            $("#SearchClient")
+            .change(function () {
+                var selectClientText = $("#SearchClient option:selected").text();
+                $('#Client').val(selectClientText);
+            });
+
+
+            /*Agregar resgitros a tablas*/
+            $("#AddButton").on("click", function(event) {
+
+
+                event.preventDefault();
+
+                var quantity = $("#ProductQty").val();
+                var productCode = $('#idProduct').val();
+                var productName = $('#NombreProducto').val();
+
+
+                //if (!String.empty(quantity)) {
+                    if (quantity > 0) {
+
+                        var itemIndex = $("#CountRows").val();
+                        console.log(itemIndex);
+                        var existProduct = false;
+
+                        if (itemIndex > 0) {
+
+                            $("#containerProducts tr").each(function () {
+
+                                if (productCode === $(this).find("td:first").find("input").val()) {
+                                    $(this).find("td:last").find("input:first").val(quantity);
+                                    $(this).find("td:last").find("span").html(quantity);
+                                    existProduct = true;
+                                }
+
+                            });
+                        }
+
+                        if (!existProduct) {
+
+                            //itemIndex = itemIndex <= 0 ? itemIndex : itemIndex + 1;
+                            newItem = "<tr id='" + itemIndex + "'><td><input type='hidden' name='Details[" + itemIndex + "].ProductCode' value='" + productCode + "'/><span>" + productCode + "</span></td>";
+                            newItem += "<td><input type='hidden' name='Details[" + itemIndex + "].ProductName' value='" + productName + "'/><span>" + productName + "</span></td>";
+                            newItem += "<td><input type='hidden' name='Details[" + itemIndex + "].Quantity' value='" + quantity + "'/><span>" + quantity + "</span></td>";
+                            newItem += "<td><button type='button' id='btnC' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></td></tr>";
+
+
+                            $("#CountRows").val(parseInt(itemIndex) + 1);
+                            $("#containerProducts > tbody").append(newItem);
+                            $("#DivProducts").show();
+                        }
+
+                        cleanSearch();
+                        
+                    }
+                //}
+            });
+
+
+            function resetIndex() {
+
+                var index = 0;
+
+                $("#containerProducts > tbody > tr").each(function () {
+
+                    $(this).find('td').each(function () {
+
+                        $(this).find('input').each(function () {
+
+                            var name = $(this).attr("name").replace(/\[[^\]]+\]/g, '[' + index + ']');
+
+                            $(this).attr("name", name);
+
+                        });
+
+                    });
+
+                    index += 1;
+                });
+
+            }
+
+        });
+    </script>
+}
+

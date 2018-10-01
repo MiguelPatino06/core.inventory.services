@@ -1,0 +1,39 @@
+﻿<!-- Sidebar Menu -->
+<ul class="sidebar-menu">
+
+  <li class="header">Opciones</li>
+  <!-- Optionally, you can add icons to the links -->
+  @*<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+    <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>*@
+  <li class="@(Session["Section"].Equals("ProductChange") ? "treeview active" : "treeview")">
+    <a href="#"><i class="fa fa-list"></i> <span>Cambio de Productos</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="@Url.Action("Index", "ProductChange")"><i class="fa fa-user-plus"></i><span> Crear Solicitud</span></a> </li>
+      <li><a href="@Url.Action("Index", "ProductChange")"><i class="fa fa-list"></i><span> Listar solicitud</span></a></li>
+    </ul>
+  </li>
+
+  <li class="@(Session["Section"].Equals("Sample") ? "treeview active" : "treeview")">
+    <a href="#"><i class="fa fa-info"></i> <span>Solicitud de Muestras</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="@Url.Action("Index", "Sample")"><i class="fa fa-user-plus"></i><span> Crear Solicitud</span></a></li>
+      <li><a href="@Url.Action("List", "Sample")"><i class="fa fa-list"></i><span> Listar solicitud</span></a></li>
+    </ul>
+  </li>
+  <li class="@(Session["Section"].Equals("ProductTransfer") ? "treeview active" : "treeview")">
+    <a href="#"><i class="fa fa-info"></i> <span>Transferencia</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="@Url.Action("Index", "ProductTransfer")"><i class="fa fa-user-plus"></i><span> Crear Solicitud</span></a></li>
+      <li><a href="@Url.Action("getAll", "ProductTransfer")"><i class="fa fa-list"></i><span> Listar solicitud</span></a></li>
+    </ul>
+  </li>
+  <li class="@(Session["Section"].Equals("Users") ? "treeview active" : "treeview")">
+    <a >
+    <a href="#"><i class="fa fa-info"></i> <span>Usuarios</span> <i class="fa fa-angle-left pull-right"></i></a>
+    <ul class="treeview-menu">
+      <li><a href="@Url.Action("Index", "ProductChange")"><i class="fa fa-user-plus"></i><span> Crear Solicitud</span></a></li>
+      <li><a href="@Url.Action("Index", "ProductChange")"><i class="fa fa-list"></i><span> Listar solicitud</span></a></li>
+    </ul>
+  </li>
+
+</ul><!-- /.sidebar-menu -->

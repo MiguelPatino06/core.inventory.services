@@ -1,0 +1,105 @@
+﻿<forms:WindowsPhonePage
+    x:Class="TShirt.InventoryApp.Mobile.Windows.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TShirt.InventoryApp.Mobile.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:forms="using:Xamarin.Forms.Platform.WinRT"
+    xmlns:forms1="http://xamarin.com/schemas/2014/forms"
+    mc:Ignorable="d" Background="Red">
+
+
+    <StackPanel>
+        <Grid Background="Green"  Margin="0,0.333,0,594.667">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="117*" />
+                <ColumnDefinition Width="238*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+
+            </Grid.RowDefinitions>
+
+            <Image Width="35" Grid.Row="0" Grid.Column="0"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Images/RecepcionItem.png" Margin="5" ></Image>
+            <TextBlock x:Name="EntProveedor" Text="Lorem IUPS" Grid.Row="0" FontSize="14"  Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
+
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0.167" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="tbOc" Grid.Row="0" Grid.Column="0" Text="O/C:" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Green" />
+                <TextBlock x:Name="tbOc1" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="OC001:" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Black" />
+                
+                <Image Width="35" Grid.Row="1" Grid.Column="1"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Images/Lote.png" ></Image>
+                <TextBox x:Name="t1" Grid.Row="1" Grid.Column="2" PlaceholderText="Lote" Width="200" Height="35" HorizontalAlignment="Left"></TextBox>
+
+                <Image Width="35" Grid.Row="2" Grid.Column="1"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Images/barcode.png" ></Image>
+                <TextBox x:Name="t2" Grid.Row="2" Grid.Column="2" PlaceholderText="Codigo Producto" Width="200" Height="35" HorizontalAlignment="Left"></TextBox>
+                <Image Width="25" Grid.Row="2" Grid.Column="3"  Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Images/search.png" ></Image>
+
+
+
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Margin="3,0,-48,0" Background="Blue">
+                    <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="tbOc11" Grid.Row="0" Grid.Column="0" Text="PROD001" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
+                    <TextBox x:Name="tbOc111" Grid.Row="0" Grid.Column="1"  Text="TSHIRT" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" />
+                    <TextBlock x:Name="tbOc1111" Grid.Row="0" Grid.Column="2" Text="120" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
+                    <TextBox x:Name="tbOc111111" Grid.Row="0" Grid.Column="3" Text="100" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" />
+                    <Image Width="25" Grid.Row="0" Grid.Column="4"  Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Images/no.png" ></Image>
+                    <!--<TextBlock x:Name="tbOc113" Grid.Row="0" Grid.Column="4" Text="X" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />-->
+
+                    <TextBlock x:Name="TbOc11TextBlock" Grid.Row="1" Grid.Column="0" Text="PROD001" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Red" />
+                    <TextBlock x:Name="tbOc11f" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Text="PROD001" VerticalAlignment="Center" HorizontalAlignment="Left"  Foreground="Black" />
+                </Grid>
+
+                <Button Content="Hello" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment ="Center" Background="Red"></Button>
+            </Grid>
+
+        </Grid>
+
+        <!--<Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+            <Button Content="Hello" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment ="Center" Background="Red"></Button>
+        </Grid>-->
+    </StackPanel>
+
+
+
+
+
+
+</forms:WindowsPhonePage>

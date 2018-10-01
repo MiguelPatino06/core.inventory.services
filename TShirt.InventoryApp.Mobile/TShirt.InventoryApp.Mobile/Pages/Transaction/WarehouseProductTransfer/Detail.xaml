@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Transaction.WarehouseProductTransfer.Detail"
+             BackgroundColor="{StaticResource BackgroundPhone}">
+  <ScrollView>
+    <StackLayout>
+      <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="45" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="65" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="45"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/RecepcionItem.png" Margin="5"></Image>
+        <Label Text="     Tranferencia entre Bodegas" Grid.Row="0" FontSize="14"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"></Label>
+        <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/Menu.png" >
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+          </Image.GestureRecognizers>
+        </Image>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0.167" BackgroundColor="{StaticResource BackgroundPhone}"  VerticalOptions="Center">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="255" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <Label Grid.Row="1" Grid.Column="1" Text="Origen" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontAttributes="Bold" FontSize="14"/>
+          <Label Grid.Row="1" Grid.Column="2" Text="{Binding WarehouseOrigin}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" />
+
+          <Label Grid.Row="2" Grid.Column="1" Text="Destino" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold" TextColor="{StaticResource TextColor}" FontSize="14"/>
+          <Label Grid.Row="2" Grid.Column="2" Text="{Binding WarehouseDestiny}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" />
+
+          <Label Grid.Row="3" Grid.Column="1" Text="Fecha" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold" TextColor="{StaticResource TextColor}" FontSize="14"/>
+          <Label Grid.Row="3" Grid.Column="2" Text="{Binding DateCreated}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" />
+
+          <Label Grid.Row="4" Grid.Column="1" Text="Status" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold" TextColor="{StaticResource TextColor}" FontSize="14"/>
+          <Label Grid.Row="4" Grid.Column="2" Text="{Binding Status}" VerticalOptions="Center" HorizontalOptions="Start" TextColor="Black" />
+
+          <Label Grid.Row="5" Grid.Column="1" Text="Productos" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold" TextColor="{StaticResource TextColor}" FontSize="14"/>
+          
+          <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,20,0,0"  BackgroundColor="{StaticResource BackgroundPhone}" HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ListView 
+                x:Name="ProductListView"
+                Grid.Row="0" Grid.Column="0"  
+                BackgroundColor="{StaticResource BackgroundPhone}"
+                ItemsSource="{Binding ProductsCollection, Mode=TwoWay}" 
+                HasUnevenRows="True"  
+                HorizontalOptions="Center" 
+                VerticalOptions="FillAndExpand" 
+                SeparatorVisibility="Default"
+                HeightRequest="{Binding HeightList}">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <Grid Padding="5" HorizontalOptions="Start" VerticalOptions="Center" BackgroundColor="{StaticResource BackgroundPhone}">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.5*" />
+
+                      </Grid.ColumnDefinitions>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+
+                      <Label 
+                        Grid.Column="0" 
+                        Text="{Binding ProductCode}" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        FontSize="14"
+                        TextColor="Black"/>
+
+                      <Label 
+                        Grid.Column="1" 
+                        Text="{Binding ProductDescription}" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        FontSize="14"
+                        TextColor="Black"/>
+
+                      <Label
+                        Grid.Column="2"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Text="{Binding Quantity}"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextColor}">
+                      </Label>
+                    </Grid>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+
+            <Label x:Name="LblObservation"  Text="Observación" Margin="5,0,0,0" Grid.Row="1" Grid.Column="0"  FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontAttributes="Bold" ></Label>
+
+            <StackLayout Margin="40,5,40,10"  Grid.Row="2" Grid.Column="0"  VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+              <StackLayout Padding="1,1,2,2" BackgroundColor="Green">
+                <Editor x:Name="edtObservacion" Text="{Binding Observation}" HeightRequest="120" HorizontalOptions="FillAndExpand" TextColor="{StaticResource TextColor}"></Editor>
+              </StackLayout>
+            </StackLayout>
+          </Grid>
+
+
+
+
+        </Grid>
+      </Grid>
+    </StackLayout>
+  </ScrollView>
+
+
+
+
+
+
+</ContentPage>

@@ -1,0 +1,229 @@
+﻿<forms:WindowsPage xmlns:forms="using:Xamarin.Forms.Platform.WinRT"       
+    x:Class="TShirt.InventoryApp.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TShirt.InventoryApp.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid  Background="Green" Margin="0,0.333,0,594.667">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45" />
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image Width="35" Grid.Row="0" Grid.Column="0"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Center" Source="Images/RecepcionItem.png" Margin="5"></Image>
+        <TextBlock x:Name="EntProveedor" Text="{Binding ProviderName}" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" ></TextBlock>
+
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Background="Yellow" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="45"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="tbOc" Grid.Row="0" Grid.Column="0" Text="O/C:" VerticalAlignment="Center" HorizontalAlignment="Right"    />
+            <TextBlock x:Name="tbOcItems" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding PurchaseOrder}" VerticalAlignment="Center" HorizontalAlignment="Left"  />
+
+            <Image Width="35" Grid.Row="1" Grid.Column="1"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Right" Source="Images/Lote.png" ></Image>
+            <TextBox x:Name="entLote" Grid.Row="1" Grid.Column="2" Text="{Binding Lote}"  Width="200" Height="35" HorizontalAlignment="Left"></TextBox>
+
+            <Image Width="35" Grid.Row="2" Grid.Column="1"  Height="35" VerticalAlignment="Center" HorizontalAlignment="Right" Source="Images/barcode.png" ></Image>
+            <TextBox x:Name="entBarcode" Grid.Row="2" Grid.Column="2" Text="{Binding BCode, Mode=TwoWay}"  Width="200" Height="35" HorizontalAlignment="Left"  >
+               
+            </TextBox>
+            <Image Width="25" Grid.Row="2" Grid.Column="3"  Height="25" VerticalAlignment="Center" HorizontalAlignment="Left" Source="Images/search.png" ></Image>
+
+            <TextBlock x:Name="Lblmsg" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding MessageResult, Mode=TwoWay}" HorizontalAlignment="Center"></TextBlock>
+
+            <!--<ListView 
+                         x:Name="OrderListView"
+                        Margin="0,10,0,0"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="Pink"
+                    ItemsSource="{Binding Orders}"
+                    HasUnevenRows="True"  
+                     HorizontalOptions="Center" VerticalOptions="Start">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                ROW 0
+                                <Label
+                                            Grid.Column="0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding ProductCode}"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            >
+                                </Label>
+
+                                <usercontrols:BindablePicker Grid.Column="1" 
+                                                                     ItemsSource="{Binding Path=BindingContext.WarehouseCollection, Source={x:Reference OrderListView} }" 
+                                                                     SelectedIndex="{Binding OrderValue1, Mode=TwoWay}"
+                                                                     WidthRequest="150" 
+                                                                     VerticalOptions="CenterAndExpand" 
+                                                                     HorizontalOptions="Center" 
+                                                                     BackgroundColor="{StaticResource TextColor}" 
+                                                                     TextColor="White"  />
+
+                                <Label 
+                                           Grid.Column="2" 
+                                           Text="{Binding Quantity}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" 
+                                           FontAttributes="Bold" TextColor="Red" />
+
+                                <Entry Grid.Column="3" 
+                                           Text="{Binding TotalProduct}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" IsEnabled="False" BackgroundColor="#cccccc"/>
+
+                                <Image WidthRequest="25" 
+                                               Grid.Column="4"  HeightRequest="25" 
+                                               VerticalOptions="Center" 
+                                               HorizontalOptions="Center" 
+                                               Source="Images/no.png" ></Image>
+
+                                <Label Grid.Column="5" 
+                                            Text="{Binding ProductName}" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Start" 
+                                            TextColor="Black" />
+                                <Label Grid.Row="1" Grid.Column="1" 
+                                              Grid.ColumnSpan="4" 
+                                              Text="{Binding ProductName}" 
+                                              VerticalOptions="Center" 
+                                              HorizontalOptions="StartAndExpand"  
+                                              TextColor="Black" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+
+            <Button Content="Guardar" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center"  Command="{Binding SaveRecepcion}"></Button>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Background="Blue" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--<ListView 
+                         x:Name="OrderListView"
+                        Margin="0,10,0,0"  Grid.Row="0" Grid.Column="0"  BackgroundColor="Pink"
+                    ItemsSource="{Binding Orders}"
+                    HasUnevenRows="True"  
+                     HorizontalOptions="Center" VerticalOptions="Start">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Red">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="45" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                --><!--ROW 0--><!--
+                                <Label
+                                            Grid.Column="0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding ProductCode}"
+                                            FontAttributes="Bold"
+                                            TextColor="Black"
+                                            >
+                                </Label>
+
+                                <usercontrols:BindablePicker Grid.Column="1" 
+                                                                     ItemsSource="{Binding Path=BindingContext.WarehouseCollection, Source={x:Reference OrderListView} }" 
+                                                                     SelectedIndex="{Binding OrderValue1, Mode=TwoWay}"
+                                                                     WidthRequest="150" 
+                                                                     VerticalOptions="CenterAndExpand" 
+                                                                     HorizontalOptions="Center" 
+                                                                     BackgroundColor="{StaticResource TextColor}" 
+                                                                     TextColor="White"  />
+
+                                <Label 
+                                           Grid.Column="2" 
+                                           Text="{Binding Quantity}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" 
+                                           FontAttributes="Bold" TextColor="Red" />
+
+                                <Entry Grid.Column="3" 
+                                           Text="{Binding TotalProduct}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" IsEnabled="False" BackgroundColor="#cccccc"/>
+
+                                <Image WidthRequest="25" 
+                                               Grid.Column="4"  HeightRequest="25" 
+                                               VerticalOptions="Center" 
+                                               HorizontalOptions="Center" 
+                                               Source="Images/no.png" ></Image>
+
+                                <Label Grid.Column="5" 
+                                            Text="{Binding ProductName}" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Start" 
+                                            TextColor="Black" />
+                                --><!--<Label Grid.Row="1" Grid.Column="1" 
+                                              Grid.ColumnSpan="4" 
+                                              Text="{Binding ProductName}" 
+                                              VerticalOptions="Center" 
+                                              HorizontalOptions="StartAndExpand"  
+                                              TextColor="Black" />--><!--
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+            <Button Content="Guardar" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"  Command="{Binding SaveRecepcion}"></Button>
+        </Grid>
+    </Grid>
+</forms:WindowsPage>
+<!--<forms:WindowsPage xmlns:forms="using:Xamarin.Forms.Platform.WinRT"                  
+                   x:Class="TShirt.InventoryApp.UWP"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   mc:Ignorable="d">
+    <Grid Background="White">
+        <TextBlock Text="Hello" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="44" FontWeight="Bold" Foreground="Red" ></TextBlock>
+    </Grid>
+</forms:WindowsPage>-->

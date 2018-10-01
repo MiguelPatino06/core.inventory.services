@@ -1,0 +1,57 @@
+DROP TABLE IF EXISTS `Warehouse`;
+CREATE TABLE "Warehouse"(     "Id" Integer Primary Key Autoincrement  NOT NULL  ,      "Name" Text  );
+INSERT INTO Warehouse VALUES (1, 'T-SHIRTS');
+INSERT INTO Warehouse VALUES (2, 'FLEXO');
+INSERT INTO Warehouse VALUES (3, 'COSTURA');
+INSERT INTO Warehouse VALUES (4, 'tttt');
+DROP TABLE IF EXISTS `sqlite_sequence`;
+CREATE TABLE sqlite_sequence(name,seq);
+INSERT INTO sqlite_sequence VALUES ('Warehouse', '4');
+INSERT INTO sqlite_sequence VALUES ('Rol', '6');
+INSERT INTO sqlite_sequence VALUES ('Provider', '3');
+INSERT INTO sqlite_sequence VALUES ('Product', '3');
+DROP TABLE IF EXISTS `Provider`;
+CREATE TABLE "Provider"(     "Id" Integer Primary Key Autoincrement  NOT NULL  ,      "Code" Text  ,      "Name" Text  ,      "Description" Text  ,      "Barcode" Text  ,      "Value1" Text  ,      "Value2" Text  ,      "Value3" Text  ,      "Value4" Text  ,      "Value5" Text  );
+INSERT INTO Provider VALUES (1, 'PROV01', 'PROVEEDOR UNO', 'PROVEEDOR UNO', '123456', '', '', '', '', '');
+INSERT INTO Provider VALUES (2, 'PROV02', 'PROVEEDOR DOS', 'PROVEEDOR DOS', '012345', '', '', '', '', '');
+INSERT INTO Provider VALUES (3, 'PROV03', 'PROVEEDOR TRES', 'PROVEEDOR TRES', '001234', '', '', '', '', '');
+DROP TABLE IF EXISTS `RctDetail`;
+CREATE TABLE "RctDetail"(     "RctId" Integer  NOT NULL  ,      "ProductCode" Text  NOT NULL  ,      "OrderCode" Text  NOT NULL  ,      "WareHouseId" Integer  ,      "Quantity" Integer  );
+DROP TABLE IF EXISTS `Rol`;
+CREATE TABLE Rol (
+Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+Name TEXT NOT NULL,
+DateCreated TEXT NOT NULL,
+Value1 TEXT NULL,
+Value2 TEXT NULL
+);
+INSERT INTO Rol VALUES (1, 'Admin', '100520171100', '', '');
+INSERT INTO Rol VALUES (2, 'Inventory', '200520171101', '', '');
+INSERT INTO Rol VALUES (4, 'Test', '100520172834', '', '');
+INSERT INTO Rol VALUES (5, 'Test', '290520170826', '', '');
+INSERT INTO Rol VALUES (6, 'BOO', '290520170832', '', '');
+DROP TABLE IF EXISTS `User`;
+CREATE TABLE "User"(     "Id" INTEGER PRIMARY KEY  NOT NULL  ,      "Code" TEXT  ,      "Name" TEXT  ,      "Observation"   ,      "DateCreated" TEXT  NOT NULL  ,      "RolId" INTEGER  NOT NULL  ,      "Value1" TEXT  ,      "Value2" TEXT  ,      "Value3" TEXT  ,      "Value4" TEXT  ,      "Value5" TEXT  ,      "Password" TEXT  );
+INSERT INTO User VALUES (1, 'USER01', 'LOREM IUPSM', '', '100520171449', 1, '', '', '', '', '', '123456');
+DROP TABLE IF EXISTS `Rct`;
+CREATE TABLE "Rct"(     "Id" Integer PRIMARY KEY  NOT NULL  ,      "Code" Text  ,      "Lot" Text  ,      "DateCreated" Text  ,      "UserId" Integer  NOT NULL  );
+DROP TABLE IF EXISTS `Product`;
+CREATE TABLE "Product"(     "Id" Integer Primary Key Autoincrement  NOT NULL  ,      "Code" Text  ,      "BarCode" Text  ,      "Description" Text  ,      "Value1" Text  ,      "Value2" Text  ,      "Value3" Text  ,      "Value4" Text  ,      "Value5" Text  );
+INSERT INTO Product VALUES (1, 'PROD01', '01020304', 'LOREM PROD IUPS', '', '', '', '', '');
+INSERT INTO Product VALUES (2, 'PROD02', '05060708', 'TESRF PORGT', '', '', '', '', '');
+INSERT INTO Product VALUES (3, 'PROD03', '03040506', 'PREMT LOREM', '', '', '', '', '');
+DROP TABLE IF EXISTS `OrderTShirt`;
+CREATE TABLE "OrderTShirt"(     "Id" Integer PRIMARY KEY  NOT NULL  ,      "Code" Text  ,      "Description" Text  ,      "ProviderCode" Text  ,      "Value1" Text  ,      "Value2" Text  ,      "Value3" Text  ,      "Value4" Text  ,      "Value5" Text  ,      "DateCreated" Text  );
+INSERT INTO OrderTShirt VALUES (1, 'OC0001', 'LOREM IUPSM TCM', 'PROV01', '', '', '', '', '', '100520171812');
+INSERT INTO OrderTShirt VALUES (2, 'OC0002', 'TESTG HYIOK', 'PROV01', '', '', '', '', '', '100520171919');
+DROP TABLE IF EXISTS `OrderDetail`;
+CREATE TABLE "OrderDetail"(     "Id" Integer PRIMARY KEY  NOT NULL  ,      "OrderCode" Text  NOT NULL  ,      "ProductCode" Text  ,      "Quantity" Integer  ,      "Value1" Text  ,      "Value2" Text  ,      "Value3" Text  ,      "Value4" Text  ,      "Value5" Text  ,      "DateCreated" Text  ,      "OrderTShirt_id" Integer  );
+INSERT INTO OrderDetail VALUES (1, 'OC0001', 'PROD01', 25, '', '', '', '', '', '100520171814', );
+INSERT INTO OrderDetail VALUES (2, 'OC0002', 'PROD02', 13, '', '', '', '', '', '100520171920', );
+INSERT INTO OrderDetail VALUES (3, 'OC0001', 'PROD03', 33, '', '', '', '', '', '210520172018', );
+DROP TABLE IF EXISTS `OrderDetailProduct`;
+CREATE TABLE "OrderDetailProduct"(     "Id" Integer PRIMARY KEY  NOT NULL  ,      "OrderCode" Text  ,      "UserCode" Text  ,      "DateCreated" Text  ,      "Quantity" Integer  ,      "ProductCode" Text  ,      "ProviderCode" Text  );
+INSERT INTO OrderDetailProduct VALUES (1, 'BOO', 'BOO', 'BOO', 12, 'BOO', 'BOO');
+INSERT INTO OrderDetailProduct VALUES (2, 'BOO1', 'BOO1', 'BOO1', 8, 'BOO1', 'BOO1');
+INSERT INTO OrderDetailProduct VALUES (3, 'OC0001', 'Miguel Patino', '5/31/2017 7:32 PM', 34, 'PROD01', 'PROV01');
+INSERT INTO OrderDetailProduct VALUES (4, 'OC0001', 'Miguel Patino', '5/31/2017 7:35 PM', 12, 'PROD01', 'PROV01');

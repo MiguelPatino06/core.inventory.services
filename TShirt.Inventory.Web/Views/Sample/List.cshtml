@@ -1,0 +1,14 @@
+﻿@model PagedList.IPagedList<TShirt.InventoryApp.Services.Models.ViewSampleSumProduct>
+@{
+    ViewBag.Title = "Buscar Muestra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div id="tableHolder" class="box">
+            @Html.Partial("_PartialList", Model)
+        </div><!-- /.box -->
+    </div>
+</div>
+

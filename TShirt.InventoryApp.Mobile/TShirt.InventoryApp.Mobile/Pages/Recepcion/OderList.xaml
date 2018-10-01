@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Recepcion.OderList"
+             BackgroundColor="{StaticResource BackgroundPhone}">
+
+    <ScrollView>
+        <StackLayout>
+            <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="65"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/RecepcionItem.png" ></Image>
+                <Label x:Name="EntProveedor" Text="{Binding ProviderName}" Grid.Row="0" FontSize="14"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/backward.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                
+                
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Fill" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+
+                    <!--<StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalOptions="Fill" VerticalOptions="Center" BackgroundColor="{StaticResource BackgroundPhone}" >-->
+
+                    <ListView Margin="0,20,0,0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BackgroundColor="{StaticResource BackgroundPhone}"
+                         ItemsSource="{Binding Orders}"
+                         HasUnevenRows="True" 
+                         HorizontalOptions="Center" 
+                         VerticalOptions="Center"
+                         HeightRequest="{Binding HeightList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    
+                                    <Grid Padding="5" HorizontalOptions="Fill">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label 
+                                        Grid.Column="0" 
+                                        VerticalOptions="Center" 
+                                        TextColor="Green" 
+                                        FontSize="16"
+                                        FontFamily="Exo"
+                                        Text="{Binding Code}" LineBreakMode="TailTruncation"></Label>
+                                        <Label 
+                                        Grid.Column="1" 
+                                        VerticalOptions="Center" 
+                                        TextColor="Green" 
+                                        FontSize="16"
+                                        FontFamily="Exo"
+                                        Text="{Binding Description}" LineBreakMode="TailTruncation"></Label>
+                                        <Switch Grid.Column="2" IsToggled="{Binding IsSelected}"  />
+                                    </Grid>
+                                    
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <!--</StackLayout>-->
+                        <Button 
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Margin="0,20,0,0"
+                            Text="Recibir >"  
+                            x:Name="EnterButton"  
+                            Command="{Binding SearchCommand}"
+                            WidthRequest="200"
+                            Style="{StaticResource ButtonTShirt}" IsVisible="{Binding CountOrders}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" Text="{Binding Message}" FontSize="Medium" TextColor="Red" FontAttributes="Bold"></Label>
+                    <!--<Button 
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Margin="0,20,0,0"
+                            Text="Recibir >"  
+                            x:Name="EnterButton"  
+                            Command="{Binding SearchCommand}"
+                            WidthRequest="200"
+                            Style="{StaticResource ButtonTShirt}"/>-->
+                </Grid>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

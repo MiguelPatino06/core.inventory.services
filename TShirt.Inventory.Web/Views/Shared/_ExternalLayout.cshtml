@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>T-SHIRT | @ViewBag.Title</title>
+
+    <!-- REQUIRED CSS -->
+    @Styles.Render("~/Content/css")
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    @Styles.Render("~/Content/external")
+
+</head>
+<body class="login-page">
+
+    @RenderBody()
+
+    <!-- REQUIRED JS SCRIPTS -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <!-- App Insights-->
+    <script type="text/javascript">
+            var appInsights = window.appInsights || function (config) {
+                function s(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u; for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;) s("track" + i.pop()); return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) { var s = u && u(config, r, f, e, o); return s !== !0 && t["_" + i](config, r, f, e, o), s }), t
+            }({
+                instrumentationKey: "64892d68-ca21-41b1-a3cb-19779c9d13c5"
+            });
+
+            window.appInsights = appInsights;
+            appInsights.trackPageView();
+    </script>
+    <!--END REQUIRED JS SCRIPTS -->
+
+</body>
+
+
+</html>

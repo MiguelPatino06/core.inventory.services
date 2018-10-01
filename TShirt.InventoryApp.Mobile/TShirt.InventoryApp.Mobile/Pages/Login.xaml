@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Login"
+             BackgroundColor="{StaticResource BackgroundPhone}" >
+
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+          
+        <!--<Grid.Padding>10</Grid.Padding>-->
+        <Image x:Name="ImgLogin"  Grid.Row="0" Grid.Column="1"  WidthRequest="140" HeightRequest="140" VerticalOptions="Center" HorizontalOptions="Center" />
+        <StackLayout  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalOptions="Center" HorizontalOptions="Center">
+
+            <StackLayout Padding="1,1,1,1" BackgroundColor="Green">
+               <Entry  x:Name="EntUser"     Placeholder="Usuario"  TextColor="{StaticResource TextColor}" WidthRequest="200" BackgroundColor="White"></Entry>
+            </StackLayout>
+            <StackLayout Padding="1,1,1,1" BackgroundColor="Green">
+                <Entry  x:Name="EntPassword" Placeholder="Password" TextColor="{StaticResource TextColor}" WidthRequest="200" BackgroundColor="White" IsPassword="True" ></Entry>
+            </StackLayout>
+            <Button 
+                Text="ENTRAR"  
+                x:Name="EnterButton"  
+                Clicked="EnterButton_OnClicked"
+                Style="{StaticResource ButtonLogin}"
+                WidthRequest="200" />
+
+
+            <Label x:Name="Lblmsg" TextColor="{StaticResource NotFound}" HorizontalOptions="CenterAndExpand" Margin="20,0,0,0" ></Label>
+            <Label x:Name="Lblmsg1" TextColor="{StaticResource NotFound}" HorizontalOptions="CenterAndExpand" Margin="20,0,80,0" ></Label>
+            <!--<Label Text="Spline:" VerticalOptions="Center" TextColor="Blue" />-->
+            <!--<Switch x:Name="ShowSplineSwitch"/>-->
+        </StackLayout>
+        <Label x:Name="LblVersion" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="{StaticResource TextColor}" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" Text="VERSION 0.0.1" ></Label>
+    </Grid>
+
+</ContentPage>

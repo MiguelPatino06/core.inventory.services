@@ -1,0 +1,114 @@
+﻿@using TShirt.InventoryApp.Web.Helpers
+@model List<TShirt.InventoryApp.Services.Models.OrderReqDetailExtend>
+                                           
+<div class="box-body table-responsive no-padding">
+
+    <table class="table table-hover table-bordered custom-table ">
+        <tr>
+            <th>Producto</th>
+            <th>Descripción</th>
+            <th></th>
+            <th>Producto</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th></th>
+        </tr>
+
+        @if (Model.Any())
+        {
+            int itemIndex = 0;
+            foreach (var item in Model)
+            {
+                <tr id="@item.Id">
+                    <td>
+                        <input type="hidden" name="Detail[@itemIndex].ProductCode" value="@item.ProductCode"/>
+                        @item.ProductCode
+                    </td>
+                    <td>
+                        <input type="hidden" name="Detail[@itemIndex].ProductName" value="@item.ProductName" />
+                        @item.ProductName
+                    </td>
+                    <td>
+                        <div class="pull-right">
+                            @Html.NoEncodeActionLink("<span class='glyphicon glyphicon-pencil'></span>", "Edit", "Edit", "ProductChange", routeValues: new {orderCode = item.OrderReqCode, productCode = item.ProductCode, productName = item.ProductName, op = "INS"}, htmlAttributes: new {data_modal = "", @class = "btn btn-success"})
+                        </div>
+                    </td>
+                    <td>
+                        <input type="hidden" name="Detail[@itemIndex].ProductCodeChanged" value="@item.ProductCodeChanged" />
+                        @item.ProductCodeChanged
+                    </td>
+                    <td>
+                        <input type="hidden" name="Detail[@itemIndex].ProductNameChanged" value="@item.ProductNameChanged" />
+                        @item.ProductNameChanged
+                    </td>
+                    <td>
+                        <input type="hidden" name="Detail[@itemIndex].Quantity" value="@item.Quantity" />
+                        @item.Quantity
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ProductCodeChanged))
+                        {
+                            <div class="pull-right">
+                                @Html.NoEncodeActionLink("<span class='glyphicon glyphicon-trash'></span>", "Delete", "Edit", "ProductChange", routeValues: new {orderCode = item.OrderReqCode, productCode = item.ProductCode, productName = item.ProductName, op = "DEL"}, htmlAttributes: new {data_modal = "", @class = "btn btn-danger"})
+                            </div>
+                        }
+                    </td>
+                </tr>
+                itemIndex += 1;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    No hay datos para mostrar
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        $.ajaxSetup({ cache: false });
+
+        $("a[data-modal]").on("click", function (e) {
+            // hide dropdown if any (this is used wehen invoking modal from link in bootstrap dropdown )
+            //$(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
+            $('#myModalContent').load(this.href, function () {
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        });
+    });
+
+    function bindForm(dialog) {
+
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+
+                        $('#myModal').modal('hide');                      
+                        $('#replacetarget').load(result.url); //  Load data from the server and place the returned HTML into the matched element
+                        
+                    } else {
+                        $('#myModalContent').html(result);
+                        bindForm(dialog);
+                    }
+                }
+            });
+            return false;
+        });
+    }
+</script>

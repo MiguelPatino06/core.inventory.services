@@ -1,0 +1,107 @@
+﻿@using System.ComponentModel
+@using TShirt.InventoryApp.Services.Models
+@model TShirt.InventoryApp.Services.Models.OrderReqExtend
+@{
+    ViewBag.Title = "Cambio de Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@*////@using (Html.BeginForm(new { @id = "FormUpload" }))*@
+@using (Html.BeginForm("Add", "ProductChange", FormMethod.Post, new { @role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(a => a.Id)
+
+
+    <div class="row" >
+        <div class="col-md-5 col-lg-offset-1">
+            <div class="row form-group">
+                <div class="row form-inline voffset">
+                    <div class="col-xs-3">
+                        <label>Pedido Nro</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(a => a.Code, new { @class = "form-control input-md", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="row form-inline voffset">
+                    <div class="col-sm-3">
+                        <label>Cliente</label>
+                    </div>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(a => a.ClientCode, new { @class = "form-control input-md", @readonly = "readonly" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+        <!-- modal placeholder-->
+    <div id='myModal' class='modal fade in'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8" id="replacetarget">
+            @{
+                if (Model.Detail != null)
+                {
+                    Html.RenderAction("OrderDetails", "ProductChange", new { aModel = Model.Detail });
+                }
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <!--Observacion-->
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="form-group">
+                    <label for="Observation">Obervaciòn</label>
+                    @Html.EditorFor(a => a.Observation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Observacion", @rows = "3" } })
+                </div>
+            </div>
+        </div>
+
+        <!--Buttons-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-offset-4 btn-group">
+                    <button type="submit" name="submitButton" class="btn btn-success" style="width: 150px" value="_SAVE">Guardar</button>
+                    <button type="submit" name="submitButton" class="btn btn-success" style="width: 150px" value="_CANCEL">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+            
+               
+
+            console.log('entro1');
+
+
+
+
+        });
+    </script> 
+    
+    }

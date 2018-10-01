@@ -1,0 +1,388 @@
+﻿@model TShirt.InventoryApp.Web.Models.ProductTransferModels
+
+@{
+  ViewBag.Title = "Transferencia - Crear Solicitud";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SaveTransfer", "ProductTransfer", FormMethod.Post, new { @name = "formTransfer", @id = "formTransfer" }))
+{
+  @Html.AntiForgeryToken()
+
+  <div class="row">
+    <div class="col-md-5 col-lg-offset-1">
+      <div class="row form-group">
+        <div class="row form-inline voffset">
+          <div class="col-xs-3">
+            <label>Destino</label>
+          </div>
+          <div class="col-sm-9">
+            @Html.DisplayFor(model => model.warehouseDestiny)
+          </div>
+        </div>
+        <div class="row form-inline voffset">
+          <div class="col-sm-3">
+            <label>Producto</label>
+          </div>
+          <div class="col-sm-5">
+            <div class="input-group">
+              @Html.TextBox("productCode", null, new { @placeholder = "Busqueda", @name = "productCode", @class = "form-control" })
+              <div class="input-group-btn">
+                <a class='btn btn-success' id='searchProduct' role='button' href=javascript:void(0)>
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <span id="MessageProduct" class="text-danger"></span>
+          </div>
+        </div>
+
+        <div id="DivClientAdd">
+          <div class="row form-inline voffset">
+            <div class="col-lg-offset-3 col-xs-9">
+              <select id="products" style="display:none" class="form-control"></select>
+            </div>
+          </div>
+          <div class="row form-inline voffset">
+            <div class="col-sm-3">
+              <label>Cantidad</label>
+            </div>
+            <div class="col-xs-9">
+              <div class="input-group">
+                <input type="number" id="quantity" name="quantity" class="form-control" />
+                <div class="input-group-btn">
+                  <a class='btn btn-success' id='addProduct' role='button' href=javascript:void(0)>
+                    Agregar >
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    @Html.HiddenFor(x => x.warehouseOrigin)
+    @Html.HiddenFor(x => x.warehouseDestiny)
+  </div>
+
+  <div class="row" id="DivProducts">
+    <!--Table-->
+    <div class="col-md-offset-2 col-md-8">
+      <div id="tableHolder" class="box">
+        <div class="box-body table-responsive no-padding">
+          <table id="containerProducts" class="table table-hover table-bordered custom-table">
+            <thead>
+              <tr>
+                <th>Código Producto</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+    <!--Observacion-->
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <div class="form-group">
+          <label for="Observation">Observación</label>
+          @Html.EditorFor(a => a.observation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Observación", @rows = "3" } })
+        </div>
+      </div>
+    </div>
+
+    <!--Buttons-->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="col-sm-offset-4 btn-group">
+          <button type="submit" name="submitButton" id="submitButton" class="btn btn-success" style="width: 150px" value="_SAVE">Guardar</button>
+          <button type="submit" name="cancelButton" id="cancelButton" class="btn btn-success" style="width: 150px" value="_CANCEL">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+    <!-- Modal Start here-->
+  <div class="modal fade bs-example-modal-sm" id="myPleaseWait2" tabindex="-1"
+       role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span class="glyphicon glyphicon-time">
+            </span>Please Wait
+          </h4>
+        </div>
+        <div class="modal-body">
+          <div class="progress">
+            <div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 100%">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Modal ends Here -->
+
+}
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+
+  <script type="text/javascript">
+    $(document)
+        .ready(function () {
+
+          var productList;
+
+          $("#DivProducts, #DivClientAdd").hide();
+
+          $("#productCode").keypress(function (event) {
+
+            if (event.which == 13) {
+
+              event.preventDefault();
+
+              validateSearchProduct();
+
+            }
+          });
+
+          $("#quantity").keypress(function (event) {
+
+            if (event.which == 13) {
+
+              event.preventDefault();
+
+              addProduct();
+
+            }
+          });
+
+          $("#addProduct").on("click", function (event) {
+
+            event.preventDefault();
+            $('#MessageProduct').text("");
+            addProduct();
+
+          });
+
+          function addProduct() {
+
+            if ($("#products").val().length <= 0) {
+              alert("Debe seleccionar un producto");
+              $("#products").focus();
+              return false;
+            }
+            else if ($("#quantity").val().length <= 0) {
+              alert("Debe ingresar la cantidad a transferir");
+              $("#quantity").focus();
+              return false;
+            }
+            else if (parseInt($("#quantity").val()) <= 0) {
+              alert("Debe ingresar una cantidad valida");
+              $("#quantity").focus();
+              return false;
+            }
+
+            var warehouseProduct = ($.grep(productList, function (obj) {
+              return obj.ProductCode === $("#products").val();
+            }))[0];
+
+            var quantity = $("#quantity").val();
+
+            if (parseInt(quantity) > parseInt(warehouseProduct.Quantity)) {
+              alert("Cantidad no disponible");
+              $("#quantity").focus();
+              return false;
+            }
+
+            var itemIndex = $("#containerProducts > tbody > tr").length;
+
+            var existProduct = false;
+
+            if (itemIndex > 0) {
+
+              $("#containerProducts > tbody > tr").each(function () {
+
+                if (warehouseProduct.Product.Code === $(this).find("td:first").find("input").val()) {
+
+                  $(this).find("td:last").find("input:first").val(quantity)
+                  $(this).find("td:last").find("span").html(quantity)
+                  existProduct = true;
+
+                }
+
+              });
+            }
+
+            if (!existProduct) {
+              newItem = "<tr><td><input type='hidden' name='products[" + itemIndex + "].productCode' value='" + warehouseProduct.Product.Code + "'/><span>" + warehouseProduct.Product.Code + "</span></td>";
+              newItem += "<td><input type='hidden' name='products[" + itemIndex + "].productDescription' value='" + warehouseProduct.Product.Description + "'/><span>" + warehouseProduct.Product.Description + "</span></td>";
+              newItem += "<td><input type='hidden' name='products[" + itemIndex + "].quantity' value='" + quantity + "'/><span>" + quantity + "</span>";
+              newItem += "<input type='hidden' name='products[" + itemIndex + "].quantityAvailable' value='" + warehouseProduct.Quantity + "'/></td>"
+              newItem += "<td><button type='button' id='btnC' class='btn btn-danger'><span class='glyphicon glyphicon-trash'></span></button></td></tr>";
+
+              $("#containerProducts > tbody").append(newItem);
+              $("#containerProducts, #DivProducts").show();
+              $("#productCode").focus();
+
+            }
+
+            //Clean Search
+            cleanSearch();
+
+          }
+
+          function cleanSearch() {
+            $("#productCode, #quantity").val("");
+            $("products").html("");
+            productList = null;
+            $("#DivClientAdd").hide();
+          }
+
+          $('#containerProducts').on('click', '#btnC', function () {
+            $(this).closest('tr').remove();
+
+            var itemIndex = $("#containerProducts > tbody > tr").length;
+
+            if (itemIndex > 0) {
+              resetIndex();
+            }
+            else {
+              $("#containerProducts, #DivProducts").hide();
+            }
+
+            return false;
+          });
+
+          function resetIndex() {
+
+            var index = 0;
+
+            $("#containerProducts > tbody > tr").each(function () {
+
+                $(this).find('td').each(function () {
+
+                    $(this).find('input').each(function () {
+
+                        var name = $(this).attr("name").replace(/\[[^\]]+\]/g, '[' + index + ']');
+
+                        $(this).attr("name", name);
+
+                    });
+
+                });
+
+                index += 1;
+            });
+
+          }
+
+          $("#submitButton").on("click", function (event) {
+
+            event.preventDefault();
+
+            $("#myPleaseWait2").modal("show");
+
+            var itemIndex = $("#containerProducts tr").length;
+
+            if (itemIndex > 0) {
+              $("#formTransfer").submit();
+            }
+            else {
+              alert("Debe agregar un producto a la lista");
+            }
+          });
+
+          $("#cancelButton").on("click", function (event) {
+
+            event.preventDefault();
+
+            window.location = '/producttransfer/getAll';
+
+          });
+
+          $("#searchProduct").on("click", function (event) {
+
+            event.preventDefault();
+            validateSearchProduct();
+
+          });
+
+          $('#quantity').keyup(function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+          });
+
+          function validateSearchProduct() {
+
+            var msg = "";
+
+            if ($("#productCode").val().length <= 0) {
+              msg = "Debe ingresar un valor para el producto";
+            }
+
+            if (msg.length > 0) {
+              alert(msg);
+            }
+            else {
+              $("#DivClientAdd").hide();
+              $('#MessageProduct').text("");
+              getWarehouseProduct();
+            }
+          }
+
+          function getWarehouseProduct() {
+
+            $("#myPleaseWait2").modal("show");
+
+            $.ajax({
+              type: 'GET',
+              url: '@Url.Action("getWarehouseProductList")',
+              dataType: 'json',
+              data: { warehouseCode: "TSHIRT", criteria: $("#productCode").val() },
+              success: function (data) {
+
+                if (data != null && data.length > 0) {
+                  productList = data;
+                  populateProducts();
+                  $("#DivClientAdd").show(); 
+                }
+                else {
+                  $('#MessageProduct').text("Producto no Disponible");
+                  cleanSearch();
+                  $("#productCode").focus();
+                }
+                $("#myPleaseWait2").modal("hide");
+              },
+              error: function (ex) {
+                alert('Error al consultar el producto.' + ex);
+                $("#myPleaseWait2").modal("hide");
+              }
+            });
+          }
+
+          function populateProducts() {
+
+            var options = "";
+
+            $.each(productList, function (i, obj) {
+              options += "<option value='" + obj.Product.Code + "'>" + obj.Product.Description + "</option>";
+            });
+
+            $("#products").html(options).show();
+          }
+
+
+        });
+  </script>
+}
+

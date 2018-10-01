@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.Inventory.Mobile.Pages.Count.PlanDetails"
+             xmlns:b="clr-namespace:Xamarin.Behaviors;assembly=Xamarin.Behaviors" 
+             BackgroundColor="{StaticResource BackgroundPhone}">
+    <ScrollView>
+        <StackLayout>
+
+
+            <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <!--<ColumnDefinition Width="117" />
+                    <ColumnDefinition Width="238*"/>-->
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="65"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/CountItem.png" Margin="5"></Image>
+                <Label x:Name="EntProveedor" Text="{Binding PlanDescription}" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/backward.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0.167" BackgroundColor="{StaticResource BackgroundPhone}" VerticalOptions="StartAndExpand" HorizontalOptions="Fill">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="45" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="45" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Image WidthRequest="35" Grid.Row="1" Grid.Column="1"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="End" Source="Images/number.png" />
+                    <Entry Grid.Row="1" Grid.Column="2" Text="{Binding BarCodeProduct}" Placeholder="Lote" WidthRequest="200" HeightRequest="30" HorizontalOptions="Start" IsEnabled="False" BackgroundColor="#cccccc"></Entry>
+                    <Label x:Name="Lblmsg" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding NameProduct}" TextColor="{StaticResource TextColor}" HorizontalOptions="CenterAndExpand"></Label>
+
+
+                    <ListView Margin="3,0,-40,0"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" 
+                              BackgroundColor="{StaticResource BackgroundPhone}"
+                              ItemsSource="{Binding Details}"
+                              HasUnevenRows="True"  
+                              HorizontalOptions="StartAndExpand" 
+                              HeightRequest="{Binding HeightList, Mode=TwoWay}">
+                        <!--<ListView.GroupHeaderTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding Key}" VerticalOptions="Center"/>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.GroupHeaderTemplate>-->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Padding="0,0,0,1">
+                                        <Grid HorizontalOptions="FillAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.5*" />
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="2.5*" />
+                                                <!--<ColumnDefinition Width="45" />-->
+                                            </Grid.ColumnDefinitions>
+
+
+                                            <Label
+                                            Grid.Row="0" Grid.Column="0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Count}"
+                                            FontAttributes="Bold"
+                                            TextColor="Black">
+                                            </Label>
+                                            <Label
+                                            Grid.Row="0" Grid.Column="1"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding UserCode}"
+                                            FontSize="12"
+                                            TextColor="Black">
+                                            </Label>
+                                            <Label 
+                                           Grid.Row="0" Grid.Column="2" 
+                                            FontSize="12"
+                                           Text="{Binding DateCreated}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" 
+                                           TextColor="Black" />
+                                            <Entry 
+                                            Grid.Row="0" Grid.Column="3"
+                                            WidthRequest="100"
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Quantity}"
+                                            HorizontalTextAlignment="Center"
+                                            IsEnabled="False" BackgroundColor="#cccccc"></Entry>
+
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+
+
+                    <StackLayout Padding="0,0,0,1" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalOptions="StartAndExpand">
+                        <Grid HorizontalOptions="FillAndExpand">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="3*" />
+                                <ColumnDefinition Width="2.5*" />
+                                <!--<ColumnDefinition Width="45" />-->
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" 
+                                   Grid.ColumnSpan="3"
+                                            FontSize="14"
+                                           Text="Ingrese Cantidad:" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="Center" 
+                                           TextColor="Black" />
+                            <Entry  x:Name="EntrQuantity" Grid.Row="0" Grid.Column="3"
+                                            WidthRequest="100"
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Center"
+                                            Text="{Binding AddQuantity}"
+                                            HorizontalTextAlignment="Center"
+                                            BackgroundColor="#cccccc" Keyboard="Numeric">
+                                <b:Interaction.Behaviors>
+                                    <b:BehaviorCollection>
+                                        <b:EventToCommand  EventName="Completed"  Command="{Binding QuantityByNumber}"/>
+                                    </b:BehaviorCollection>
+                                </b:Interaction.Behaviors>
+                            </Entry>
+
+
+                        </Grid>
+                    </StackLayout>
+
+
+
+                    <Label x:Name="LblTotal" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"
+                                           Text="{Binding CountProduct}" 
+                                           TextColor="{StaticResource TextColor}" 
+                                           VerticalOptions="Center" 
+                                           HorizontalOptions="CenterAndExpand"
+                                           Font="18" FontAttributes="Bold"></Label>
+
+
+
+                    <!--<Label x:Name="LblTotal" Grid.Row="4" Grid.Column="0" 
+                           Text="{Binding CountProduct}" 
+                           TextColor="{StaticResource TextColor}" 
+                           VerticalOptions="Start" HorizontalOptions="End" 
+                           Font="18" FontAttributes="Bold"></Label>-->
+
+                    <Button Text="Listo" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"  VerticalOptions="Center" WidthRequest="250" Style="{StaticResource ButtonTShirt}" Command="{Binding SaveCount}"></Button>
+                </Grid>
+            </Grid>
+
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

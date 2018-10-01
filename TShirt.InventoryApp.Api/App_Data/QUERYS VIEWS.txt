@@ -1,0 +1,118 @@
+The 'Quantity' property on 'ProviderOrder' could not be set to a 'System.Int64' value. 
+You must set this property to a non-null value of type 'System.String'. 
+
+https://www.youtube.com/watch?v=L8b1ewonlrg
+
+https://www.youtube.com/watch?v=oGzAIQvnxiQ
+
+https://www.visualstudio.com/es/thank-you-downloading-visual-studio/?sku=Enterprise&rel=15
+
+https://docs.microsoft.com/es-es/visualstudio/install/install-visual-studio 
+
+URL DESCARGA REPORT VIEWER 2010 RT
+https://www.microsoft.com/en-us/download/details.aspx?id=6442
+
+NOTAS certificadas, 
+constancia de otorgamiento de titulo
+
+--QUERY ViewOrder Viejo
+  SELECT 
+     Od.Id,
+     Ord.Id AS IdOrder,
+     Ord.Code,
+     Ord.Description,
+     Ord.ProviderCode, 
+     Pro.Name AS ProviderName,
+     Pro.Barcode AS ProviderBarcode
+     Od.ProductCode,
+     Prod.Id AS IdProduct,
+     Prod.Description AS ProductName,
+     Prod.Barcode AS BarcodeProduct,
+     Od.Quantity,
+     Od.Value1 AS OrderValue1,
+     Od.Value2 AS OrderValue2,
+     Od.Value3 AS OrderValue3,
+     Od.Value4 AS OrderValue4, 
+     Od.Value5 AS OrderValue5
+   FROM
+      OrderTShirt AS Ord 
+   INNER JOIN OrderDetail Od ON Ord.Code = Od.OrderCode
+   INNER JOIN Provider Pro ON Ord.ProviderCode = Pro.Code
+   LEFT OUTER JOIN Product Prod ON Od.ProductCode = Prod.Code
+
+--QUERY ViewOrder NUEVO
+   SELECT        
+     Od.Id, 
+	 Ord.Id AS IdOrder, 
+	 Ord.Code, Ord.Description, 
+	 Ord.ProviderCode, 
+	 Pro.Name AS ProviderName, 
+	 Pro.Barcode AS ProviderBarcode, 
+	 Od.ProductCode, Prod.Id AS IdProduct, 
+	 Prod.Description AS ProductName, 
+     Prod.BarCode AS BarcodeProduct,  
+	 Od.Value1 AS OrderValue1,
+     Od.Value2 AS OrderValue2,
+     Od.Value3 AS OrderValue3,
+     Od.Value4 AS OrderValue4, 
+     Od.Value5 AS OrderValue5, Od.Quantity, 
+        CASE  WHEN SUM(Odp.Quantity) > 0 THEN  SUM(Odp.Quantity) ELSE 0 END   AS TotalProduct
+FROM  OrderTShirt AS Ord INNER JOIN
+      OrderDetail AS Od ON  Ord.Code = Od.OrderCode  INNER JOIN
+      Provider AS Pro ON Ord.ProviderCode =  Pro.Code LEFT OUTER JOIN
+      OrderDetailProduct AS Odp ON  ((Od.OrderCode = Odp.OrderCode) AND 
+                                    (Odp.ProductCode  =   Od.ProductCode) ) LEFT OUTER JOIN
+      Product AS Prod ON Od.ProductCode = Prod.Code
+GROUP BY   Od.Id, Ord.Id, Ord.Code, Ord.Description, Ord.ProviderCode, Pro.Name, Pro.Barcode, Od.ProductCode, Prod.Id, Prod.Description, 
+                         Prod.BarCode, Od.Quantity
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+ SELECT 
+    p.Id,
+    p.Name,
+    p.Code,
+    p.Barcode AS ProviderBarCode,
+    ot.Code AS OrderCode,
+    ot.Description AS OrderDescription,
+    ord.ProductCode,
+    ord.Quantity,
+    pro.BarCode AS ProductBarCode,
+    pro.Description AS ProductDescription
+ FROM
+   Provider AS p
+ INNER JOIN OrderTShirt ot  ON  ot.ProviderCode = p.Code
+ INNER JOIN OrderDetail ord ON  ord.OrderCode = ot.Code
+ INNER JOIN Product pro ON pro.Code = ord.ProductCode
+ 
+ 
+
+CREATE TABLE Rol (
+Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+Name TEXT NOT NULL,
+DateCreated TEXT NOT NULL,
+Value1 TEXT NULL,
+Value2 TEXT NULL
+);
+
+CREATE TABLE User (
+  Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  Code TEXT NULL,
+  Name TEXT NULL,
+  Observation NOT NULL,
+  DateCreated TEXT NOT NULL,
+  RolId INTEGER NOT NULL,
+  Value1 TEXT NULL,
+  Value2 TEXT NULL,
+  Value3 TEXT NULL,
+  Value4 TEXT NULL,
+  Value5 TEXT NULL,
+    FOREIGN KEY (RolId) REFERENCES Rol (Id)
+);

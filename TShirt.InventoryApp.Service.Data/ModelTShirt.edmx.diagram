@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c30813c925f4e7f89d5e0c778e0a206" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="TSGVLModel.IV00101" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSGVLModel.POP10100" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSGVLModel.POP10110" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TSGVLModel.IV00102" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TSGVLModel.IV10300" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TSGVLModel.IV10301" Width="1.5" PointX="9.375" PointY="5.75" />
+        <EntityTypeShape EntityType="TSGVLModel.IV40700" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TSGVLModel.IV41000" Width="1.5" PointX="11.375" PointY="8.75" />
+        <EntityTypeShape EntityType="TSGVLModel.PM00200" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="TSGVLModel.RM00101" Width="1.5" PointX="11.375" PointY="11.75" />
+        <EntityTypeShape EntityType="TSGVLModel.ItemQuantities" Width="1.5" PointX="13.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

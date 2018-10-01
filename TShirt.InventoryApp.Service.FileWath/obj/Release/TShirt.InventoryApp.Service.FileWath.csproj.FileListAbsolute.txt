@@ -1,0 +1,11 @@
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\bin\Release\TShirt.InventoryApp.Service.FileWath.exe.config
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\bin\Release\TShirt.InventoryApp.Service.FileWath.exe
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\bin\Release\TShirt.InventoryApp.Service.FileWath.pdb
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\bin\Release\Microsoft.Dynamics.GP.eConnect.dll
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\bin\Release\Microsoft.Dynamics.GP.eConnect.MiscRoutines.dll
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\bin\Release\Microsoft.Dynamics.GP.eConnect.Serialization.dll
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\obj\Release\TShirt.InventoryApp.Service.FileWath.FileWatcherService.resources
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\obj\Release\TShirt.InventoryApp.Service.FileWath.ProjectInstaller.resources
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\obj\Release\TShirt.InventoryApp.Service.FileWath.csproj.GenerateResource.Cache
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\obj\Release\TShirt.InventoryApp.Service.FileWath.exe
+E:\REPOSITORIOS\inventariomovil\TShirt.InventoryApp.Service.FileWath\obj\Release\TShirt.InventoryApp.Service.FileWath.pdb

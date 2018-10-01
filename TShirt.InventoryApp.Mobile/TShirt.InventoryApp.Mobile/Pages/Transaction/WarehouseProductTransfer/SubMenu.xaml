@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Transaction.WarehouseProductTransfer.SubMenu"
+             Title="SubMenu">
+
+  <StackLayout >
+    <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="45" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="45"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <Image WidthRequest="30" HeightRequest="30" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/Menu.png" ></Image>
+      <Label Text="     Tranferencia entre Bodegas" Grid.Row="0" FontSize="14"  Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+
+
+
+      <ListView x:Name="ListMenu" 
+                          Margin="0,-10,0,0"  
+                          Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                          BackgroundColor="{StaticResource BackgroundPhone}"
+                          HasUnevenRows="True"  
+                          HorizontalOptions="Fill" 
+                          VerticalOptions="Center"
+                          ItemTapped="Handle_ItemTapped"
+                          ItemsSource="{Binding Menu}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid Padding="8" HorizontalOptions="Fill">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding NavigateCommand}">
+                  </TapGestureRecognizer>
+                </Grid.GestureRecognizers>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Image
+                                        WidthRequest="50"
+                                        HeightRequest="50" 
+                                        Source="{Binding Icon}"
+                                        Margin="25,0,0,0">
+                </Image>
+                <Label 
+                                        Grid.Column="1" 
+                                        VerticalOptions="Center" 
+                                        TextColor="Green" 
+                                        FontSize="16"
+                                        FontFamily="Exo"
+                                        Text="{Binding Name}">
+                </Label>
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+
+    </Grid>
+  </StackLayout>
+
+</ContentPage>

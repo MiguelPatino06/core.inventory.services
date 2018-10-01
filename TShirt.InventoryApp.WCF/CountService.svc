@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="TShirt.InventoryApp.WCF.CountService" CodeBehind="CountService.svc.cs" %>

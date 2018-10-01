@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Transaction.ProductChange.Add"
+             xmlns:b="clr-namespace:Xamarin.Behaviors;assembly=Xamarin.Behaviors" 
+             BackgroundColor="{StaticResource BackgroundPhone}" x:Name="PageAdd">
+  <ScrollView>
+    <StackLayout>
+            <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/CambioItem.png" Margin="5"></Image>
+                <Label x:Name="EntProveedor" Text="Cambio Producto" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  BackgroundColor="{StaticResource BackgroundPhone}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="5*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label x:Name="LblPedido"  Text="Nro Pedido"        Grid.Row="1" Grid.Column="1" FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontAttributes="Bold" ></Label>
+                    <Label x:Name="LblPedidoR" Text="{Binding Pedido}"  Grid.Row="1" Grid.Column="2" FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" ></Label>
+
+                    <Label x:Name="LblCliente"  Text="Cliente"            Grid.Row="2" Grid.Column="1" FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontAttributes="Bold"></Label>
+                    <Label x:Name="LblClienteR" Text="{Binding Cliente}"  Grid.Row="2" Grid.Column="2" FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}"></Label>
+
+                    <Label x:Name="LblCodigoProducto"  Text="{Binding Producto}"     Grid.Row="3" Grid.Column="1" FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontAttributes="Bold" ></Label>
+                    <Label x:Name="LblNameProducto"    Text="{Binding ProductName}"  Grid.Row="3" Grid.Column="2" FontSize="14"  HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}"></Label>
+
+                    <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Margin="30,0,30,0" BackgroundColor="{StaticResource BackgroundPhone}"  VerticalOptions="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="255" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="1" Grid.Column="1" Text="Producto" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontSize="14" />
+                        <Entry x:Name="EntPedido" Grid.Row="1" Grid.Column="2" Placeholder="Producto" HorizontalOptions="StartAndExpand" VerticalOptions="Center" WidthRequest="250"  FontSize="14" Text="{Binding ProductSearch}">
+                            <b:Interaction.Behaviors>
+                                <b:BehaviorCollection>
+                                    <b:EventToCommand  EventName="Completed"  Command="{Binding Search}"/>
+                                </b:BehaviorCollection>
+                            </b:Interaction.Behaviors>
+                        </Entry>
+                        <Image WidthRequest="25" Grid.Row="1" Grid.Column="3"  HeightRequest="25" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/search.png" >
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer  
+                            Command="{Binding Path=BindingContext.SearchClicImage, Source={x:Reference PageAdd}}"
+                            CommandParameter="{Binding .}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Label Grid.Row="2" Grid.Column="2" Text="{Binding MessageSearch}" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontSize="14" />
+
+                        
+                        <Label Grid.Row="3" Grid.Column="1" Text="Cantidad" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontSize="14" />
+
+                        <Entry x:Name="EntCantidad" Grid.Row="3" Grid.Column="2"  HorizontalOptions="StartAndExpand" VerticalOptions="Center" WidthRequest="100" FontSize="14" Text="{Binding Quantity}" Keyboard="Numeric"></Entry>
+
+
+                        <Button Text="Agregar" Grid.Row="3" Grid.Column="3"   VerticalOptions="Center" HorizontalOptions="Start" WidthRequest="120" Style="{StaticResource ButtonTShirt}" Command="{Binding Save}" ></Button>
+                    </Grid>
+
+
+                </Grid>
+
+
+
+            </Grid>
+        </StackLayout>
+  </ScrollView>
+</ContentPage>

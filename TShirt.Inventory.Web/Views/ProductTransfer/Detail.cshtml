@@ -1,0 +1,77 @@
+﻿@using TShirt.InventoryApp.Web.Helpers
+@model TShirt.InventoryApp.Services.Models.TransferDetail
+
+@{
+    ViewBag.Title = "Transferencia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-md-5 col-lg-offset-1">
+    <div class="row form-group">
+      <div class="row form-inline voffset">
+        <div class="col-xs-3">
+          <label>Destino</label>
+        </div>
+        <div class="col-sm-9">
+          @Html.DisplayFor(model => model.WarehouseDestiny)
+        </div>
+      </div>
+      <div class="row form-inline voffset">
+        <div class="col-xs-3">
+          <label>Fecha</label>
+        </div>
+        <div class="col-sm-9">
+          @Html.DisplayFor(model => model.DateCreated)
+        </div>
+      </div>
+      <div class="row form-inline voffset">
+        <div class="col-xs-3">
+          <label>Estatus</label>
+        </div>
+        <div class="col-sm-9">
+          @MyHelpers.StatusName(Model.Status)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="DivProducts">
+  <!--Table-->
+  <div class="col-md-offset-2 col-md-8">
+    <div id="tableHolder" class="box">
+      <div class="box-body table-responsive no-padding">
+        <table id="containerProducts" class="table table-hover table-bordered custom-table">
+          <thead>
+            <tr>
+              <th>Código Producto</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var item in Model.products) {
+              <tr>
+                <td>@item.ProductCode</td>
+                <td>@item.ProductDescription</td>
+                <td>@item.Quantity</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!--Observacion-->
+  <div class="row">
+    <div class="col-md-offset-2 col-md-8">
+      <div class="form-group">
+        <label for="Observation">Observación</label>
+        @Html.EditorFor(a => a.Observation, new { htmlAttributes = new { @class = "form-control", @placeholder = "Observación", @rows = "3" } })
+      </div>
+    </div>
+  </div>
+</div>
+

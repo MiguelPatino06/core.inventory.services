@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.App"
+             xmlns:infra="clr-namespace:TShirt.InventoryApp.Mobile.Infrastructure;assembly=TShirt.InventoryApp.Mobile">
+	<Application.Resources>
+        <ResourceDictionary>
+            <!--General Colors-->
+            <Color x:Key="BackgroundPhone">#f9f9f9</Color>
+            <Color x:Key="TextColor">#009e0f</Color>
+            <Color x:Key="HelpColor">#666666</Color>
+            <Color x:Key="NotFound">Red</Color>
+        <!--General Controls-->
+            <Style x:Key="ButtonTShirt" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#009e0f" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+             </Style>
+
+            <Style x:Key="ButtonProcess" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#cccccc" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="TitleRecepcion" TargetType ="Label">
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="#009e0f" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="ButtonLogin" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#009e0f" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <!--<Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="BackgroundColor" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>-->
+                <!--<Style.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsMouseOver}" Value="True">
+                        <Setter Property="BackgroundColor" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>-->
+            </Style>
+
+            <Style x:Key="ButtonProv" TargetType="Button">
+
+                <Style.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding PressButton, Mode=TwoWay}" Value="PR">
+                        
+                        <Setter Property="BackgroundColor" Value="#009e0f" />
+                        <Setter Property="BorderColor" Value="Green" />
+                        <Setter Property="WidthRequest" Value="160"/>
+                        <Setter Property="HeightRequest" Value="30" />
+                        <Setter Property="BorderRadius" Value="15" />
+                        <Setter Property="TextColor" Value="White" />
+                        <Setter Property="HorizontalOptions" Value="End" />
+                        <Setter Property="FontSize" Value="14"/>
+                        
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding PressButton, Mode=TwoWay}" Value="OC">
+                        
+                        <Setter Property="BackgroundColor" Value="White" />
+                        <Setter Property="BorderColor" Value="Green" />
+                        <!--<Setter Property="WidthRequest" Value="160"/>
+                        <Setter Property="HeightRequest" Value="30" />
+                        <Setter Property="BorderRadius" Value="15" />-->
+                        <Setter Property="TextColor" Value="Green" />
+                        <!--<Setter Property="HorizontalOptions" Value="End" />-->
+                        <!--<Setter Property="FontSize" Value="14"/>-->
+                        
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ButtonOrder" TargetType="Button">
+                <!--<Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BorderColor" Value="Green" />
+                <Setter Property="WidthRequest" Value="160"/>
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="BorderRadius" Value="15" />
+                <Setter Property="TextColor" Value="Green" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="FontSize" Value="14"/>-->
+                <Style.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding PressButton, Mode=TwoWay}"  Value="OC">
+                      
+                        <Setter Property="BackgroundColor" Value="#009e0f" />
+                        <Setter Property="BorderColor" Value="Green" />
+                        <!--<Setter Property="WidthRequest" Value="160"/>
+                        <Setter Property="HeightRequest" Value="30" />
+                        <Setter Property="BorderRadius" Value="15" />-->
+                        <Setter Property="TextColor" Value="White" />
+                        <!--<Setter Property="HorizontalOptions" Value="Start" />-->
+                        <!--<Setter Property="FontSize" Value="14"/>-->
+                        
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding PressButton, Mode=TwoWay}" Value="PR">
+
+                        <Setter Property="BackgroundColor" Value="White" />
+                        <Setter Property="BorderColor" Value="Green" />
+                        <!--<Setter Property="WidthRequest" Value="160"/>-->
+                        <Setter Property="HeightRequest" Value="30" />
+                        <Setter Property="BorderRadius" Value="15" />
+                        <Setter Property="TextColor" Value="Green" />
+                        <Setter Property="HorizontalOptions" Value="Start" />
+                        <Setter Property="FontSize" Value="14"/>
+
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <!--<Style x:Key="ButtonLogin" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                        </Trigger>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ButtonLogin" TargetType="Button">
+                <Style.Triggers>
+                    <DataTrigger TargetType="customControls:NumericTextBox" Binding="{Binding IsValid}" Value="true">
+                        <Setter Property="TextColor" Value="Red"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>-->
+
+
+
+        <!--Locator-->
+        <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>    
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Menu"
+             Title="Menu"
+             Icon="Images/Count.png"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             BackgroundColor="{StaticResource BackgroundPhone}">
+
+
+    <Grid  BackgroundColor="Green" Margin="0,0.333,0,594.667">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--<Image
+            Grid.Row="0" Grid.Column="0"
+            Source="Images/Menu.png" 
+            Width="40"
+            Height="40">
+        
+        </Image>-->
+        <Label Text="T-SHIRT Inventory" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold" Margin="70,0,0,0" ></Label>
+
+    </Grid>
+
+
+    <!--<Grid BackgroundColor="Green">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="T-SHIR Inventory" HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" VerticalOptions="Center"></Label>
+    </Grid>-->
+
+
+    <ListView Grid.Row="1"
+     ItemsSource="{Binding Menu}"
+     HasUnevenRows="True">
+     <ListView.ItemTemplate>
+         <DataTemplate>
+             <ViewCell>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            WidthRequest="50"
+                            HeightRequest="50" 
+                            Source="{Binding Icon}"
+                            Margin="25,0,0,0"></Image>
+                        <Label 
+                            Grid.Column="1" 
+                            VerticalOptions="Center" 
+                            TextColor="Green" 
+                            FontSize="Medium"
+                            Text="{Binding Name}"></Label>
+                    </Grid>
+             </ViewCell>
+         </DataTemplate>
+     </ListView.ItemTemplate>
+ </ListView>
+     
+</ContentPage>

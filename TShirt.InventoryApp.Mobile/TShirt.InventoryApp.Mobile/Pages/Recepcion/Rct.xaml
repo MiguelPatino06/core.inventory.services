@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Recepcion.Rct" BackgroundColor="{StaticResource BackgroundPhone}">
+
+    <StackLayout>
+        <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,594.667">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45" />
+                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="45" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="Auto"/>
+                <!--<RowDefinition Height="45"/>-->
+            </Grid.RowDefinitions>
+
+            <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/RecepcionItem.png" Margin="5"></Image>
+            <Label x:Name="EntProveedor" Text="{Binding ProviderName}" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+            <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/Menu.png" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0.167" BackgroundColor="{StaticResource BackgroundPhone}" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Label x:Name="tbOcItems" 
+                       Grid.Row="0" Grid.Column="0"
+                       Text="" 
+                       VerticalOptions="Center" HorizontalOptions="Center" 
+                       TextColor="Black" FontAttributes="Bold" />
+
+
+                    <Image Grid.Row="1" Grid.Column="0" Margin="0,20,0,0" 
+                        WidthRequest="80" HeightRequest="80" 
+                        VerticalOptions="Center" HorizontalOptions="Center" 
+                        Source="Images/yes.png" ></Image>
+                    <Label x:Name="Lblmsg" Margin="0,20,0,0" 
+                        Grid.Row="2" Grid.Column="0" 
+                        Text="Recepción asignada al lote:" 
+                        TextColor="Black" FontAttributes="Bold"
+                        VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+                    <Label x:Name="LblLot"
+                        Grid.Row="3" Grid.Column="0"  
+                        Text="{Binding Lot}" 
+                        TextColor="Black" FontAttributes="Bold"
+                        VerticalOptions="Center" HorizontalOptions="Center" ></Label>
+
+                    <ListView 
+                         x:Name="OrderListView"
+                        Margin="0,20,0,0"  Grid.Row="4" Grid.Column="0" BackgroundColor="{StaticResource BackgroundPhone}"
+                    ItemsSource="{Binding Orders}"
+                    HasUnevenRows="True"  
+                      HorizontalOptions="Center" VerticalOptions="Start" HeightRequest="{Binding HeightList}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="#eee"
+                        Orientation="Vertical">
+                                    <!--<ViewCell.View>-->
+                                    <Grid Padding="10" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource BackgroundPhone}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="150" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                                                                                                                                                                                 
+                                        <Label
+                                            Grid.Row="0" Grid.Column="0"
+                                            VerticalOptions="Center"
+                                            HorizontalOptions="End"
+                                            Text="O/C"
+                                            FontSize="14"
+                                            FontAttributes="Bold"
+                                            TextColor="Black" />
+ 
+                                        <Label Grid.Row="0" Grid.Column="1" 
+                                            Text="{Binding OrderCode}" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Center" 
+                                            FontSize="14"
+                                            FontAttributes="Bold" TextColor="Black" />
+                                        <Label Grid.Row="0" Grid.Column="2" Margin="15,0,0,0"                                          
+                                            Text="{Binding Status}" 
+                                            VerticalOptions="Center" 
+                                            HorizontalOptions="Start"  
+                                            FontSize="14"
+                                            TextColor="Black" 
+                                            FontAttributes="Bold" />
+                                    </Grid>
+                                    <!--</ViewCell.View>-->
+                                    </StackLayout>
+                                    
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Label x:Name="LblRct" Margin="0,20,0,0"
+                        Grid.Row="5" Grid.Column="0" 
+                        Text="{Binding RctCode}" 
+                        Style="{StaticResource TitleRecepcion}"></Label>
+                </Grid>
+        
+        </Grid>
+
+    </StackLayout>
+    <!--</ScrollView>-->
+</ContentPage>

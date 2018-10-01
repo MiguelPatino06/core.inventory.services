@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"            
+             x:Class="TShirt.Inventory.Mobile.App">
+	<Application.Resources>
+
+        <ResourceDictionary>
+            <!--General Colors-->
+            <Color x:Key="BackgroundPhone">#f9f9f9</Color>
+            <Color x:Key="TextColor">#009e0f</Color>
+            <Color x:Key="HelpColor">#666666</Color>
+            <Color x:Key="NotFound">Red</Color>
+            <!--General Controls-->
+
+            <Style x:Key="ButtonTShirt" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#009e0f" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="ButtonLogin" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#009e0f" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+           
+        </ResourceDictionary>
+
+    </Application.Resources>
+</Application>

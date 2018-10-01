@@ -1,0 +1,162 @@
+﻿@model TShirt.InventoryApp.Services.Models.OrderReqDetailExtend
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Cambiar Producto</h4>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(a => a.OrderReqCode)
+        @Html.HiddenFor(a => a.ProductCodeChanged)
+        @Html.HiddenFor(a => a.ProductNameChanged)
+
+    <div class="row">
+        <div class="col-md-6 col-lg-offset-1">
+            <div class="row form-group">
+
+                <div class="row form-inline voffset">
+                    <div class="col-md-offset-3 col-md-9">
+                        @Html.TextBoxFor(a => a.ProductCode, new {@class = "form-control", @readonly = "readonly"})
+                    </div>
+                </div>
+                <div class="row form-inline voffset">
+                    <div class="col-md-offset-3 col-md-9">
+                        @Html.TextBoxFor(a => a.ProductName, new {@class = "form-control", @readonly = "readonly"})
+                    </div>
+                </div>
+
+
+
+                @if(ViewBag.Option == "INS")
+                {
+                    <div class="row form-inline voffset">
+                        <div class="col-sm-3">
+                            <label>Producto</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="input-group">
+                                @Html.TextBox("aStringSearch", (string) ViewBag._StringSearch, new {@placeholder = "Busqueda", @name = "table_search", @class = "form-control"})
+                                <div class="input-group-btn">
+                                    <a class='btn btn-success' id='SearchButton' role='button' href=javascript:void(0)>
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <span id="MessageProduct" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                }
+                <div id="DivClientAdd">
+                    <div class="row form-inline voffset">
+                        <div class="col-lg-offset-3 col-xs-9">
+                            
+                            <input type="text" id="NombreCliente" name="NombreCliente" class="form-control" readonly="readonly"/>
+                            @Html.DropDownList("SearchProd", ViewData["searchProd"] as List<SelectListItem>, new {@class = "form-control"})
+
+                        </div>
+                    </div>
+                    <div class="row form-inline voffset">
+                        <div class="col-sm-3">
+                            <label>Cantidad</label>
+                        </div>
+                        <div class="col-xs-9">
+                            <div class="input-group">
+                                <input type="number" id="ProductQty" name="ProductQty" class="form-control"/>
+                                <div class="input-group-btn">
+                                    <input class="btn btn-success" id='AddButton' type="submit" value="Agregar >"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+        @if(ViewBag.Option == "DEL")
+        {
+            <div class="row">
+                <div class="col-md-offset-4 col-md-8">
+                    <input class="btn btn-danger" type="submit" value="Eliminar?" />
+                </div>
+            </div>
+        }
+        
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn" type="button" id="btnEditDiagnosis" data-dismiss="modal">Cancel</button>
+    </div>
+}
+<script type="text/javascript">
+
+    $("#DivClientAdd").hide();
+    console.log('entro2');
+
+    $("#SearchProd")
+   .change(function () {
+       var selectProductValue = $("#SearchProd").val();
+       var selectProdcutText = $("#SearchProd option:selected").text();
+       $('#ProductCodeChanged').val(selectProductValue);
+       $('#ProductNameChanged').val(selectProdcutText);
+   });
+
+
+    $('#SearchButton')
+        .on('click',
+            function () {
+                $('#NombreCliente').text("");
+                $('#ProductCodeChanged').val('');
+                $('#MessageProduct').text('');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetProduct")',
+                    dataType: 'json',
+                    data: { search: $("#aStringSearch").val() },
+                    success: function (data) {
+                        $("#DivClientAdd").show();
+                        $("#SearchProd").empty();
+                        $("#SearchProd").hide();
+                        $('#NombreCliente').hide();
+                        if (data.CountProduct > 1) {
+
+                            $("#SearchProd").show();
+                            $.each(data.Result, function (i, produc) {
+                                $("#SearchProd")
+                                    .append('<option value="' + produc.Code + '">' + produc.Description + '</option>');
+                            });
+                            var selectProductValue = $("#SearchProd").val();
+                            var selectProdcutText = $("#SearchProd option:selected").text();
+                            $('#ProductCodeChanged').val(selectProductValue);
+                            $('#ProductNameChanged').val(selectProdcutText);
+
+
+                        } else {
+                            $('#NombreCliente').show();
+                            $.each(data.Result, function (i, produc) {
+                                $('#ProductNameChanged').val(produc.Description);
+                                $('#ProductCodeChanged').val(produc.Code);
+                            });
+                        }
+                    },
+                    error: function (ex) {
+                        $('#MessageProduct').text("Producto NO registrado");
+                        $("#DivClientAdd").hide();
+                        $('#ProductNameChanged').val('');
+                        $('#ProductCodeChanged').val('');
+                    }
+                });
+    });
+
+</script>

@@ -1,0 +1,19 @@
+﻿@model PagedList.IPagedList<TShirt.InventoryApp.Services.Models.OrderReqExtend>
+@{
+    ViewBag.Title = "Lista de Pedidos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @*<div class="col-xs-12">
+        <div class="form-group">
+            <a class="add-link" href="@Url.Action("Add", "Client")">Agregar Items</a>
+        </div>
+    </div>*@
+    <div class="col-xs-12">
+        <div id="tableHolder" class="box">
+           @Html.Partial("_PartialList", Model)
+        </div><!-- /.box -->
+    </div>
+</div>
+

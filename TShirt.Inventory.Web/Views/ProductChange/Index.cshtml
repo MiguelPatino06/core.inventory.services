@@ -1,0 +1,107 @@
+﻿@model PagedList.IPagedList<TShirt.InventoryApp.Services.Models.OrderReqExtend>
+    @{
+        ViewBag.Title = "Buscar Pedido";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="row">
+        @*<div class="col-xs-12">
+                <div class="form-group">
+                    <a class="add-link" href="@Url.Action("Add", "Client")">Agregar Items</a>
+                </div>
+            </div>*@
+        <div class="col-xs-12">
+            <div id="tableHolder" class="box">
+                @Html.Partial("_PartialList", Model)
+            </div><!-- /.box -->
+        </div>
+    </div>
+
+
+
+
+
+@*@using (Html.BeginForm(new {@id = "FormSearch", @enctype = "multipart/form-data"}))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            @Html.TextBox("PedidoId", null, new {@class = "form-control", placeholder = "Número Pedido"})
+                            <span class="input-group-btn">
+                                <a class='btn btn-success' id='SearchButton' role='button' href=javascript:void(0)>
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </a>
+                            </span>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row form-inline">
+
+                        <div class="col-sm-12">
+                            <label id="NombreCliente" style="vertical-align: middle"></label>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="row" id="DivButtons">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-offset-4 btn-group">
+                            <button type="submit" name="submitButton" class="btn btn-success btn-md" value="_SAVE">Siguiente</button>
+                            <button type="submit" name="submitButton" class="btn btn-success btn-md" value="_SUBMIT">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    *@
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+
+
+        <script type="text/javascript">
+            $(document)
+                .ready(function () {
+
+                   @* $("#PedidoId").focus();
+                    $("#DivButtons").hide();
+
+                $('#SearchButton')
+                    .on('click',
+                        function () {
+                            console.log("text1");
+
+                            $("#DivButtons").hide();
+                            $('#NombreCliente').text("");
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("GetOrder")',
+                                dataType: 'json',
+                                data: { id: $("#PedidoId").val() },
+                                success: function (data) {
+                                    alert('entro');
+                                    $("#DivButtons").show();
+                                    $('#NombreCliente').text(data.ClientName);
+                                }
+                            });
+
+                        });*@
+
+
+                });
+        </script>
+    }
+

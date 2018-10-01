@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Count.PlantList" 
+             BackgroundColor="{StaticResource BackgroundPhone}">
+
+
+  <ScrollView>
+    <StackLayout>
+      <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="45" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="65" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="45"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/CountItem.png" Margin="5"></Image>
+        <Label x:Name="EntProveedor" Text="Conteo de Inventario" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+        <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/Menu.png" >
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+          </Image.GestureRecognizers>
+        </Image>
+
+
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  BackgroundColor="{StaticResource BackgroundPhone}" HorizontalOptions="Fill">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <!--<RowDefinition Height="100"/>-->
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+
+          <Label  Grid.Row="0" 
+                       Text="Seleccione Plan de Conteo" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       TextColor="{StaticResource TextColor}" 
+                       FontAttributes="Bold" FontSize="Medium"></Label>
+
+
+          <Button x:Name="btnRefresh" Grid.Row="0"
+                       HorizontalOptions="End"
+                       Margin="0,0,0,-20"
+                       VerticalOptions="Center" 
+                       Style="{StaticResource ButtonTShirt}" 
+                       Text="Refrescar" 
+                       Command="{Binding Refresh}" ></Button>
+
+
+          <ListView x:Name="ListCount" Margin="10,0,0,0"
+                              ItemsSource="{Binding Items}"
+                              Grid.Row="1"
+                              HasUnevenRows="true"                          
+                              HorizontalOptions="Center" VerticalOptions="Start" 
+                              BackgroundColor="{StaticResource BackgroundPhone}" 
+                              ItemSelected="ListCount_OnItemSelected"
+                              HeightRequest="{Binding HeightList}">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                  <Grid Padding="10" HorizontalOptions="Fill">
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"></ColumnDefinition>
+                      <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label  Grid.Column="0" 
+                                                VerticalOptions="Center" 
+                                                TextColor="Green" 
+                                                FontSize="16"
+                                                FontFamily="Exo"
+                                                FontAttributes="Bold"
+                                                Text="{Binding Name}" ></Label>
+                    <Label  Grid.Column="1" 
+                                                VerticalOptions="Center" 
+                                                TextColor="Green" 
+                                                FontSize="16"
+                                                FontFamily="Exo"
+                                                Text="{Binding Description}" LineBreakMode="TailTruncation"></Label>
+                  </Grid>
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+
+          </ListView>
+
+        </Grid>
+      </Grid>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

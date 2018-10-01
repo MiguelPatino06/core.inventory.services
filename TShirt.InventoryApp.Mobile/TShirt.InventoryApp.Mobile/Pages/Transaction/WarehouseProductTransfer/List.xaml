@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TShirt.InventoryApp.Mobile.Pages.Transaction.WarehouseProductTransfer.List"
+             xmlns:b="clr-namespace:Xamarin.Behaviors;assembly=Xamarin.Behaviors"
+             BackgroundColor="{StaticResource BackgroundPhone}"
+             x:Name="TransferList">
+  <ScrollView>
+    <StackLayout>
+      <Grid  BackgroundColor="{StaticResource TextColor}" Margin="0,0.333,0,0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="45" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="65" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="45"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image WidthRequest="35" Grid.Row="0" Grid.Column="0"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/RecepcionItem.png" Margin="5"></Image>
+        <Label x:Name="title" Text="     Tranferencia entre Bodegas" Grid.Row="0" FontSize="14"  Grid.Column="1"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold" ></Label>
+        <Image WidthRequest="35" Grid.Row="0" Grid.Column="2"  HeightRequest="35" VerticalOptions="Center" HorizontalOptions="Center" Source="Images/Menu.png" >
+          <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapGestureRecognizerTapped"/>
+          </Image.GestureRecognizers>
+        </Image>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="Fill" Padding="15,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+           <Grid.RowDefinitions>
+               <RowDefinition Height="45"></RowDefinition>
+               <RowDefinition Height="Auto"></RowDefinition>
+               <RowDefinition Height="Auto"></RowDefinition>
+           </Grid.RowDefinitions>
+
+                <Label Grid.Row="1" Grid.Column="1" Text="Nro Solicitud" HorizontalOptions="Start" VerticalOptions="Center" TextColor="{StaticResource TextColor}" FontSize="14" FontAttributes="Bold"/>
+                    <Entry x:Name="EntCode" Grid.Row="1" Grid.Column="2"  HorizontalOptions="StartAndExpand" VerticalOptions="Center" WidthRequest="100" FontSize="14"  Text="{Binding TransferCode}" >
+                    <b:Interaction.Behaviors>
+                        <b:BehaviorCollection>
+                            <b:EventToCommand  EventName="Completed"  Command="{Binding SearchRequestCommand}"/>
+                        </b:BehaviorCollection>
+                    </b:Interaction.Behaviors>
+               </Entry>
+               <Image WidthRequest="25" Grid.Row="1" Grid.Column="3"  HeightRequest="25" VerticalOptions="Center" HorizontalOptions="Start" Source="Images/search.png" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer   Command="{Binding SearchRequestCommand}" />
+                    </Image.GestureRecognizers>
+               </Image>
+
+
+              <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="0,20,0,0"  BackgroundColor="{StaticResource BackgroundPhone}" HorizontalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                        <ListView x:Name="ProductListView"  Margin="10,0,0,0"
+                        Grid.Row="0"  
+                        BackgroundColor="{StaticResource BackgroundPhone}"
+                        ItemsSource="{Binding ProductTransferSummaryCollection}" 
+                        HasUnevenRows="True"  
+                        HorizontalOptions="Center" 
+                        VerticalOptions="FillAndExpand" 
+                        HeightRequest="{Binding HeightList, Mode=TwoWay}">
+                   <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid Padding="5" HorizontalOptions="Fill" VerticalOptions="Center" BackgroundColor="{StaticResource BackgroundPhone}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2.5*" />
+                                                <ColumnDefinition Width="2.5*" />
+                                                <ColumnDefinition Width="2.5*" />
+                                                <ColumnDefinition Width="2.5*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"/>
+                                                <RowDefinition Height="40"/>
+                                            </Grid.RowDefinitions>
+                                              <!--ROW 0-->
+                                                <Label
+                                                  Grid.Column="0"
+                                                  Grid.Row="0"
+                                                  VerticalOptions="Center"
+                                                  HorizontalOptions="Start"
+                                                  Text="{Binding Id, StringFormat='SOL{0}'}"  
+                                                  FontSize="14"
+                                                  TextColor="Black" />
+                                               <Label
+                                                  Grid.Column="1"
+                                                  Grid.Row="0"
+                                                  VerticalOptions="Center"
+                                                  HorizontalOptions="Start"
+                                                  Text="{Binding DateCreated}"  
+                                                  FontSize="14"
+                                                  TextColor="Black" />
+                                            
+                                            <!--ROW 1-->
+                                                <Label
+                                                    Grid.Column="0"
+                                                    Grid.Row="1"
+                                                    VerticalOptions="Center"
+                                                    HorizontalOptions="Start"
+                                                    Text="{Binding WarehouseOrigin, StringFormat='{0} - '}"
+                                                    FontSize="14"
+                                                    TextColor="Black" />
+                                                <Label
+                                                      Grid.Column="1"
+                                                    Grid.Row="1"
+                                                      VerticalOptions="Center"
+                                                      HorizontalOptions="Start"
+                                                      Text="{Binding WarehouseDestiny}"
+                                                      FontSize="14"
+                                                      TextColor="Black" />
+                                                <Label
+                                                      Grid.Column="2"
+                                                    Grid.Row="1"
+                                                      VerticalOptions="Center"
+                                                      HorizontalOptions="Start"
+                                                      Text="{Binding Status}"
+                                                      FontSize="14"
+                                                      TextColor="Black" />
+                                               <Button Text="Ver >" Grid.Column="3"
+                                                        Grid.Row="1"
+                                                        VerticalOptions="Center" 
+                                                        HorizontalOptions="Start" 
+                                                        WidthRequest="80" 
+                                                        Style="{StaticResource ButtonTShirt}" 
+                                                        Command="{Binding Path=BindingContext.DetailCommand, Source={x:Reference TransferList}}"
+                                                        CommandParameter="{Binding .}" />
+
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+            </ListView>
+              </Grid>
+        </Grid>
+      </Grid>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>
